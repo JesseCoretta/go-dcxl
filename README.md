@@ -6,6 +6,10 @@ Package `dcxl` implements **draft-coretta-x660-ldap**, an Internet Draft (ID) of
 
 NOTE: The ID is not yet approved and is currently expired, pending review. It should be considered EXPERIMENTAL and is absolutely not yet intended for production use.
 
+## Package Status
+
+This package is under heavy, active development. Volatility should be expected for the interim.
+
 ## Other Repositories
 
 * [`draft-coretta-x660-ldap`](https://github.com/JesseCoretta/draft-coretta-x660-ldap) - the official repository for the draft-coretta-x660-ldap ID effort. Contains usable LDAP schemata and some example LDIF content.
