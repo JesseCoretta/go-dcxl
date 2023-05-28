@@ -3,7 +3,7 @@ package dcxl
 /*
 sgf.go contains stock SetFunc/GetFunc-qualified functions for use
 during composition or interrogation of Registration and/or Registrant
-type instances, as well as to offer practical examples for use in the
+type instances, as well as to offer practical examples regarding the
 creation of such CUSTOM function instances by the user.
 */
 
@@ -12,7 +12,7 @@ import "time"
 /*
 GeneralizedTimeToTime converts one or more string-based generalizedTime
 values into a UTC-aligned time.Time instances, which are then added as
-slices to an instance of []time.Time (as an interface type), which is
+slices to an instance of []time.Time (as an interface type), and then
 returned alongside an error. This function qualifies for the SetFunc
 and GetFunc type signatures.
 

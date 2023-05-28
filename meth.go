@@ -9,12 +9,12 @@ func (r RootArc) DN() string {
 }
 
 /*
-DNGetFunc executes the GetFunc instance and returns its own
+DNGetFunc executes the GetOrSetFunc instance and returns its own
 return values. The 'any' value will require type assertion in
 order to be accessed reliably. An error is returned if issues
 arise.
 */
-func (r RootArc) DNGetFunc(getfunc GetFunc) (any, error) {
+func (r RootArc) DNGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -25,13 +25,13 @@ func (r RootArc) DNGetFunc(getfunc GetFunc) (any, error) {
 /*
 SetDN assigns the string value as to the receiver's R_DN field.
 */
-func (r *RootArc) SetDN(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetDN(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_DN = assert
 			return nil
 		}
-		return errorf("Unsupported DN type %T provided without SetFunc instance", X)
+		return errorf("Unsupported DN type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -51,12 +51,12 @@ func (r SubArc) DN() string {
 }
 
 /*
-DNGetFunc executes the GetFunc instance and returns its own
+DNGetFunc executes the GetOrSetFunc instance and returns its own
 return values. The 'any' value will require type assertion in
 order to be accessed reliably. An error is returned if issues
 arise.
 */
-func (r SubArc) DNGetFunc(getfunc GetFunc) (any, error) {
+func (r SubArc) DNGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -67,13 +67,13 @@ func (r SubArc) DNGetFunc(getfunc GetFunc) (any, error) {
 /*
 SetDN assigns the string value as to the receiver's R_DN field.
 */
-func (r *SubArc) SetDN(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetDN(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_DN = assert
 			return nil
 		}
-		return errorf("Unsupported DN type %T provided without SetFunc instance", X)
+		return errorf("Unsupported DN type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -93,11 +93,11 @@ func (r RootArc) Description() string {
 }
 
 /*
-DescriptionGetFunc executes the GetFunc instance and returns its own
+DescriptionGetFunc executes the GetOrSetFunc instance and returns its own
 return values. The 'any' value will require type assertion in order
 to be accessed reliably.
 */
-func (r RootArc) DescriptionGetFunc(getfunc GetFunc) (any, error) {
+func (r RootArc) DescriptionGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -108,13 +108,13 @@ func (r RootArc) DescriptionGetFunc(getfunc GetFunc) (any, error) {
 /*
 SetDescription assigns the string value as to the receiver's R_Desc field.
 */
-func (r *RootArc) SetDescription(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetDescription(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Desc = assert
 			return nil
 		}
-		return errorf("Unsupported Description type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Description type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -134,11 +134,11 @@ func (r SubArc) Description() string {
 }
 
 /*
-DescriptionGetFunc executes the GetFunc instance and returns its own
+DescriptionGetFunc executes the GetOrSetFunc instance and returns its own
 return values. The 'any' value will require type assertion in order
 to be accessed reliably.
 */
-func (r SubArc) DescriptionGetFunc(getfunc GetFunc) (any, error) {
+func (r SubArc) DescriptionGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -149,13 +149,13 @@ func (r SubArc) DescriptionGetFunc(getfunc GetFunc) (any, error) {
 /*
 SetDescription assigns the string value as to the receiver's R_Desc field.
 */
-func (r *SubArc) SetDescription(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetDescription(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Desc = assert
 			return nil
 		}
-		return errorf("Unsupported Description type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Description type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -175,10 +175,10 @@ func (r RootArc) N() string {
 }
 
 /*
-NGetFunc executes the GetFunc instance and returns its own return
-values. The 'any'
+NGetFunc executes the GetOrSetFunc instance and returns its own return
+values.
 */
-func (r RootArc) NGetFunc(getfunc GetFunc) (any, error) {
+func (r RootArc) NGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -188,13 +188,13 @@ func (r RootArc) NGetFunc(getfunc GetFunc) (any, error) {
 /*
 SetN assigns the string value to the receiver's R_N field.
 */
-func (r *RootArc) SetN(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetN(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok && isNumber(assert) {
 			r.R_N = assert
 			return nil
 		}
-		return errorf("Unsupported N type %T provided without SetFunc instance", X)
+		return errorf("Unsupported N type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -214,10 +214,10 @@ func (r SubArc) N() string {
 }
 
 /*
-NGetFunc executes the GetFunc instance and returns its own return
-values. The 'any'
+NGetFunc executes the GetOrSetFunc instance and returns its own return
+values.
 */
-func (r SubArc) NGetFunc(getfunc GetFunc) (any, error) {
+func (r SubArc) NGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -227,13 +227,13 @@ func (r SubArc) NGetFunc(getfunc GetFunc) (any, error) {
 /*
 SetN assigns the string value to the receiver's R_N field.
 */
-func (r *SubArc) SetN(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetN(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok && isNumber(assert) {
 			r.R_N = assert
 			return nil
 		}
-		return errorf("Unsupported N type %T provided without SetFunc instance", X)
+		return errorf("Unsupported N type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -251,7 +251,11 @@ attribute type is not applicable to entries of objectClass
 */
 func (r RootArc) DotNotation() string { return `` }
 
-func (r RootArc) DotNotationGetFunc(getfunc GetFunc) (any, error) {
+/*
+DotNotationGetFunc processes the R_DotNot field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r RootArc) DotNotationGetFunc(getfunc GetOrSetFunc) (any, error) {
 	return nil, errorf("DotNotation does not apply to %T instances", r)
 }
 
@@ -261,7 +265,7 @@ registrations do not have dotNotation values within LDAP
 due to syntax criteria. This method exists to satisfy Go
 interface requirements.
 */
-func (r *RootArc) SetDotNotation(o any, setfunc ...SetFunc) error {
+func (r *RootArc) SetDotNotation(o any, setfunc ...GetOrSetFunc) error {
 	return errorf("DotNotation not applicable to %T", r)
 }
 
@@ -273,7 +277,11 @@ func (r SubArc) DotNotation() string {
 	return r.R_DotNot
 }
 
-func (r SubArc) DotNotationGetFunc(getfunc GetFunc) (any, error) {
+/*
+DotNotationGetFunc processes the R_DotNot field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r SubArc) DotNotationGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -283,13 +291,13 @@ func (r SubArc) DotNotationGetFunc(getfunc GetFunc) (any, error) {
 /*
 SetDotNotation assigns the string value to the receiver's R_DotNot field.
 */
-func (r *SubArc) SetDotNotation(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetDotNotation(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_DotNot = assert
 			return nil
 		}
-		return errorf("Unsupported N type %T provided without SetFunc instance", X)
+		return errorf("Unsupported N type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -312,13 +320,13 @@ func (r RootArc) ASN1Notation() string {
 SetASN1Notation assigns the string value to the receiver's
 R_ASN1Not field.
 */
-func (r *RootArc) SetASN1Notation(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetASN1Notation(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_ASN1Not = assert
 			return nil
 		}
-		return errorf("Unsupported ASN.1 Notation type %T provided without SetFunc instance", X)
+		return errorf("Unsupported ASN.1 Notation type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -329,7 +337,11 @@ func (r *RootArc) SetASN1Notation(X any, setfunc ...SetFunc) error {
 	return r.SetASN1Notation(v)
 }
 
-func (r RootArc) ASN1NotationGetFunc(getfunc GetFunc) (any, error) {
+/*
+ASN1NotationGetFunc processes the R_ASN1Not field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r RootArc) ASN1NotationGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -349,13 +361,13 @@ func (r SubArc) ASN1Notation() string {
 SetASN1Notation assigns the string value to the receiver's
 R_ASN1Not field.
 */
-func (r *SubArc) SetASN1Notation(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetASN1Notation(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_ASN1Not = assert
 			return nil
 		}
-		return errorf("Unsupported ASN.1 Notation type %T provided without SetFunc instance", X)
+		return errorf("Unsupported ASN.1 Notation type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -366,7 +378,11 @@ func (r *SubArc) SetASN1Notation(X any, setfunc ...SetFunc) error {
 	return r.SetASN1Notation(v)
 }
 
-func (r SubArc) ASN1NotationGetFunc(getfunc GetFunc) (any, error) {
+/*
+ASN1NotationGetFunc processes the R_ASN1Not field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r SubArc) ASN1NotationGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -386,13 +402,13 @@ func (r RootArc) NameAndNumberForm() string {
 SetNameAndNumberForm assigns the string value to the receiver's
 R_NaNF field.
 */
-func (r *RootArc) SetNameAndNumberForm(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetNameAndNumberForm(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_NaNF = assert
 			return nil
 		}
-		return errorf("Unsupported NameAndNumberForm type %T provided without SetFunc instance", X)
+		return errorf("Unsupported NameAndNumberForm type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -403,7 +419,11 @@ func (r *RootArc) SetNameAndNumberForm(X any, setfunc ...SetFunc) error {
 	return r.SetNameAndNumberForm(v)
 }
 
-func (r RootArc) NameAndNumberFormGetFunc(getfunc GetFunc) (any, error) {
+/*
+NameAndNumberFormGetFunc processes the R_NaNF field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r RootArc) NameAndNumberFormGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -423,13 +443,13 @@ func (r SubArc) NameAndNumberForm() string {
 SetNameAndNumberForm assigns the string value to the receiver's
 R_NaNF field.
 */
-func (r *SubArc) SetNameAndNumberForm(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetNameAndNumberForm(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_NaNF = assert
 			return nil
 		}
-		return errorf("Unsupported NameAndNumberForm type %T provided without SetFunc instance", X)
+		return errorf("Unsupported NameAndNumberForm type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -440,7 +460,11 @@ func (r *SubArc) SetNameAndNumberForm(X any, setfunc ...SetFunc) error {
 	return r.SetNameAndNumberForm(v)
 }
 
-func (r SubArc) NameAndNumberFormGetFunc(getfunc GetFunc) (any, error) {
+/*
+NameAndNumberFormGetFunc processes the R_NaNF field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r SubArc) NameAndNumberFormGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -460,13 +484,13 @@ func (r RootArc) LeftArc() string {
 SetLeftArc assigns the string value to the receiver's R_LeftArc
 field.
 */
-func (r *RootArc) SetLeftArc(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetLeftArc(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_LeftArc = assert
 			return nil
 		}
-		return errorf("Unsupported LeftArc type %T provided without SetFunc instance", X)
+		return errorf("Unsupported LeftArc type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -477,7 +501,12 @@ func (r *RootArc) SetLeftArc(X any, setfunc ...SetFunc) error {
 	return r.SetLeftArc(v)
 }
 
-func (r RootArc) LeftArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+LeftArcGetFunc processes the R_LeftArc field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r RootArc) LeftArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -497,13 +526,13 @@ func (r SubArc) LeftArc() string {
 SetLeftArc assigns the string value to the receiver's R_LeftArc
 field.
 */
-func (r *SubArc) SetLeftArc(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetLeftArc(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_LeftArc = assert
 			return nil
 		}
-		return errorf("Unsupported LeftArc type %T provided without SetFunc instance", X)
+		return errorf("Unsupported LeftArc type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -514,7 +543,12 @@ func (r *SubArc) SetLeftArc(X any, setfunc ...SetFunc) error {
 	return r.SetLeftArc(v)
 }
 
-func (r SubArc) LeftArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+LeftArcGetFunc processes the R_LeftArc field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r SubArc) LeftArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -533,11 +567,15 @@ func (r RootArc) FirstArc() string { return `` }
 SetFirstArc performs no useful task, and exists only to satisfy
 Go interface requirements.
 */
-func (r *RootArc) SetFirstArc(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetFirstArc(X any, setfunc ...GetOrSetFunc) error {
 	return errorf("FirstArc not applicable to %T", r)
 }
 
-func (r RootArc) FirstArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+FirstArcGetFunc performs no useful task, and exists only to satisfy
+Go interface requirements.
+*/
+func (r RootArc) FirstArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	return nil, errorf("FirstArc not applicable to %T", r)
 }
 
@@ -553,13 +591,13 @@ func (r SubArc) FirstArc() string {
 SetFirstArc assigns the string value to the receiver's R_FirstArc
 field.
 */
-func (r *SubArc) SetFirstArc(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetFirstArc(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_FirstArc = assert
 			return nil
 		}
-		return errorf("Unsupported FirstArc type %T provided without SetFunc instance", X)
+		return errorf("Unsupported FirstArc type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -570,7 +608,11 @@ func (r *SubArc) SetFirstArc(X any, setfunc ...SetFunc) error {
 	return r.SetFirstArc(v)
 }
 
-func (r SubArc) FirstArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+FirstArcGetFunc processes the R_FirstArc field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r SubArc) FirstArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -589,11 +631,15 @@ func (r RootArc) FinalArc() string { return `` }
 SetFinalArc performs no useful task, and exists only to satisfy
 Go interface requirements.
 */
-func (r *RootArc) SetFinalArc(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetFinalArc(X any, setfunc ...GetOrSetFunc) error {
 	return errorf("FinalArc not applicable to %T", r)
 }
 
-func (r RootArc) FinalArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+FinalArcGetFunc performs no useful task, and exists only to satisfy
+Go interface requirements.
+*/
+func (r RootArc) FinalArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	return nil, errorf("FinalArc not applicable to %T", r)
 }
 
@@ -609,13 +655,13 @@ func (r SubArc) FinalArc() string {
 SetFinalArc assigns the string value to the receiver's R_FinalArc
 field.
 */
-func (r *SubArc) SetFinalArc(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetFinalArc(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_FinalArc = assert
 			return nil
 		}
-		return errorf("Unsupported FinalArc type %T provided without SetFunc instance", X)
+		return errorf("Unsupported FinalArc type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -625,7 +671,11 @@ func (r *SubArc) SetFinalArc(X any, setfunc ...SetFunc) error {
 	return r.SetFinalArc(v)
 }
 
-func (r SubArc) FinalArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+FinalArcGetFunc processes the R_FinalArc field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r SubArc) FinalArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -645,13 +695,13 @@ func (r RootArc) RightArc() string {
 SetRightArc assigns the string value to the receiver's R_RightArc
 field.
 */
-func (r *RootArc) SetRightArc(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetRightArc(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_RightArc = assert
 			return nil
 		}
-		return errorf("Unsupported RightArc type %T provided without SetFunc instance", X)
+		return errorf("Unsupported RightArc type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -662,7 +712,11 @@ func (r *RootArc) SetRightArc(X any, setfunc ...SetFunc) error {
 	return r.SetRightArc(v)
 }
 
-func (r RootArc) RightArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+RightArcGetFunc processes the R_RightArc field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r RootArc) RightArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -682,13 +736,13 @@ func (r SubArc) RightArc() string {
 SetRightArc assigns the string value to the receiver's R_RightArc
 field.
 */
-func (r *SubArc) SetRightArc(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetRightArc(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_RightArc = assert
 			return nil
 		}
-		return errorf("Unsupported RightArc type %T provided without SetFunc instance", X)
+		return errorf("Unsupported RightArc type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -699,7 +753,11 @@ func (r *SubArc) SetRightArc(X any, setfunc ...SetFunc) error {
 	return r.SetRightArc(v)
 }
 
-func (r SubArc) RightArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+RightArcGetFunc processes the R_RightArc field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r SubArc) RightArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -719,11 +777,15 @@ func (r RootArc) TopArc() string { return `` }
 SetTopArc does not perform any useful task, as a root
 arc registration is a "top arc" in of itself.
 */
-func (r *RootArc) SetTopArc(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetTopArc(X any, setfunc ...GetOrSetFunc) error {
 	return errorf("TopArc not applicable to %T", r)
 }
 
-func (r RootArc) TopArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+TopArcGetFunc does not perform any useful task, as a root
+arc registration is a "top arc" in of itself.
+*/
+func (r RootArc) TopArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	return nil, errorf("TopArc not applicable to %T", r)
 }
 
@@ -739,13 +801,13 @@ func (r SubArc) TopArc() string {
 SetTopArc assigns the string value to the receiver's R_TopArc
 field.
 */
-func (r *SubArc) SetTopArc(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetTopArc(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_TopArc = assert
 			return nil
 		}
-		return errorf("Unsupported TopArc type %T provided without SetFunc instance", X)
+		return errorf("Unsupported TopArc type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -755,7 +817,11 @@ func (r *SubArc) SetTopArc(X any, setfunc ...SetFunc) error {
 	return r.SetTopArc(v)
 }
 
-func (r SubArc) TopArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+TopArcGetFunc processes the R_TopArc field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r SubArc) TopArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -774,11 +840,15 @@ func (r RootArc) SupArc() string { return `` }
 SetSupArc does not perform any useful task, as a root
 arc registration cannot have a superior (parent).
 */
-func (r *RootArc) SetSupArc(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetSupArc(X any, setfunc ...GetOrSetFunc) error {
 	return errorf("SupArc not applicable to %T", r)
 }
 
-func (r RootArc) SupArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+SupArcGetFunc does not perform any useful task, as a root
+arc registration cannot have a superior (parent).
+*/
+func (r RootArc) SupArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	return nil, errorf("SupArc not applicable to %T", r)
 }
 
@@ -794,13 +864,13 @@ func (r SubArc) SupArc() string {
 SetSupArc assigns the string value to the receiver's R_SupArc
 field.
 */
-func (r *SubArc) SetSupArc(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetSupArc(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_SupArc = assert
 			return nil
 		}
-		return errorf("Unsupported SupArc type %T provided without SetFunc instance", X)
+		return errorf("Unsupported SupArc type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -810,7 +880,12 @@ func (r *SubArc) SetSupArc(X any, setfunc ...SetFunc) error {
 	return r.SetSupArc(v)
 }
 
-func (r SubArc) SupArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+SupArcGetFunc processes the R_SupArc field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r SubArc) SupArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -831,13 +906,13 @@ func (r RootArc) Identifier() string {
 SetIdentifier assigns the string value to the receiver's R_Id
 field.
 */
-func (r *RootArc) SetIdentifier(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetIdentifier(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Id = assert
 			return nil
 		}
-		return errorf("Unsupported Identifier type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Identifier type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -847,7 +922,12 @@ func (r *RootArc) SetIdentifier(X any, setfunc ...SetFunc) error {
 	return r.SetIdentifier(v)
 }
 
-func (r RootArc) IdentifierGetFunc(getfunc GetFunc) (any, error) {
+/*
+IdentifierGetFunc processes the R_Id field through the provided
+GetOrSetFunc instance, returning an interface value alongside an
+error.
+*/
+func (r RootArc) IdentifierGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -868,13 +948,13 @@ func (r SubArc) Identifier() string {
 SetIdentifier assigns the string value to the receiver's R_Id
 field.
 */
-func (r *SubArc) SetIdentifier(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetIdentifier(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Id = assert
 			return nil
 		}
-		return errorf("Unsupported Identifier type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Identifier type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -885,7 +965,12 @@ func (r *SubArc) SetIdentifier(X any, setfunc ...SetFunc) error {
 	return r.SetIdentifier(v)
 }
 
-func (r SubArc) IdentifierGetFunc(getfunc GetFunc) (any, error) {
+/*
+IdentifierGetFunc processes the R_Id field through the provided
+GetOrSetFunc instance, returning an interface value alongside an
+error.
+*/
+func (r SubArc) IdentifierGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -906,7 +991,7 @@ func (r RootArc) AdditionalIdentifier() []string {
 SetAdditionalIdentifier appends one or more string slice values
 to the receiver's R_AddlId field.
 */
-func (r *RootArc) SetAdditionalIdentifier(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetAdditionalIdentifier(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_AddlId = append(r.R_AddlId, assert) // append
@@ -915,7 +1000,7 @@ func (r *RootArc) SetAdditionalIdentifier(X any, setfunc ...SetFunc) error {
 			r.R_AddlId = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported AdditionalIdentifier type %T provided without SetFunc instance", X)
+		return errorf("Unsupported AdditionalIdentifier type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -926,7 +1011,11 @@ func (r *RootArc) SetAdditionalIdentifier(X any, setfunc ...SetFunc) error {
 	return r.SetAdditionalIdentifier(v)
 }
 
-func (r RootArc) AdditionalIdentifierGetFunc(getfunc GetFunc) (any, error) {
+/*
+AdditionalIdentifierGetFunc processes the R_AddlId field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r RootArc) AdditionalIdentifierGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -947,7 +1036,7 @@ func (r SubArc) AdditionalIdentifier() []string {
 SetAdditionalIdentifier appends one or more string slice values
 to the receiver's R_AddlId field.
 */
-func (r *SubArc) SetAdditionalIdentifier(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetAdditionalIdentifier(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_AddlId = append(r.R_AddlId, assert) // append
@@ -956,7 +1045,7 @@ func (r *SubArc) SetAdditionalIdentifier(X any, setfunc ...SetFunc) error {
 			r.R_AddlId = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported AdditionalIdentifier type %T provided without SetFunc instance", X)
+		return errorf("Unsupported AdditionalIdentifier type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -967,7 +1056,11 @@ func (r *SubArc) SetAdditionalIdentifier(X any, setfunc ...SetFunc) error {
 	return r.SetAdditionalIdentifier(v)
 }
 
-func (r SubArc) AdditionalIdentifierGetFunc(getfunc GetFunc) (any, error) {
+/*
+AdditionalIdentifierGetFunc processes the R_AddlId field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r SubArc) AdditionalIdentifierGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -988,7 +1081,7 @@ func (r RootArc) CurrentAuthority() []string {
 SetAdditionalIdentifier appends one or more string slice values
 to the receiver's R_AddlId field.
 */
-func (r *RootArc) SetCurrentAuthority(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetCurrentAuthority(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_CAuthyDN = append(r.R_CAuthyDN, assert) // append
@@ -997,7 +1090,7 @@ func (r *RootArc) SetCurrentAuthority(X any, setfunc ...SetFunc) error {
 			r.R_CAuthyDN = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported CurrentAuthority type %T provided without SetFunc instance", X)
+		return errorf("Unsupported CurrentAuthority type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1008,7 +1101,11 @@ func (r *RootArc) SetCurrentAuthority(X any, setfunc ...SetFunc) error {
 	return r.SetCurrentAuthority(v)
 }
 
-func (r RootArc) CurrentAuthorityGetFunc(getfunc GetFunc) (any, error) {
+/*
+CurrentAuthorityGetFunc processes the R_CAuthyDN field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r RootArc) CurrentAuthorityGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1048,7 +1145,7 @@ func (r SubArc) CurrentAuthority() []string {
 SetCurrentAuthority appends one or more string slice DN values
 to the receiver's R_CAuthyDN field.
 */
-func (r *SubArc) SetCurrentAuthority(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetCurrentAuthority(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_CAuthyDN = append(r.R_CAuthyDN, assert) // append
@@ -1057,7 +1154,7 @@ func (r *SubArc) SetCurrentAuthority(X any, setfunc ...SetFunc) error {
 			r.R_CAuthyDN = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported CurrentAuthority type %T provided without SetFunc instance", X)
+		return errorf("Unsupported CurrentAuthority type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1068,7 +1165,11 @@ func (r *SubArc) SetCurrentAuthority(X any, setfunc ...SetFunc) error {
 	return r.SetCurrentAuthority(v)
 }
 
-func (r SubArc) CurrentAuthorityGetFunc(getfunc GetFunc) (any, error) {
+/*
+CurrentAuthorityGetFunc processes the R_CAuthyDN field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r SubArc) CurrentAuthorityGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1114,7 +1215,7 @@ func (r RootArc) CombinedFirstAuthority() *FirstAuthority { return r.R_FAuthy }
 SetFirstAuthority appends one or more string slice DN values
 to the receiver's R_FAuthyDN field.
 */
-func (r *RootArc) SetFirstAuthority(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetFirstAuthority(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_FAuthyDN = append(r.R_FAuthyDN, assert) // append
@@ -1123,7 +1224,7 @@ func (r *RootArc) SetFirstAuthority(X any, setfunc ...SetFunc) error {
 			r.R_FAuthyDN = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported CurrentAuthority type %T provided without SetFunc instance", X)
+		return errorf("Unsupported CurrentAuthority type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1134,7 +1235,11 @@ func (r *RootArc) SetFirstAuthority(X any, setfunc ...SetFunc) error {
 	return r.SetFirstAuthority(v)
 }
 
-func (r RootArc) FirstAuthorityGetFunc(getfunc GetFunc) (any, error) {
+/*
+FirstAuthorityGetFunc processes the R_FAuthyDN field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r RootArc) FirstAuthorityGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1174,7 +1279,7 @@ func (r SubArc) CombinedFirstAuthority() *FirstAuthority { return r.R_FAuthy }
 SetFirstAuthority appends one or more string slice DN values
 to the receiver's R_FAuthyDN field.
 */
-func (r *SubArc) SetFirstAuthority(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetFirstAuthority(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_FAuthyDN = append(r.R_FAuthyDN, assert) // append
@@ -1183,7 +1288,7 @@ func (r *SubArc) SetFirstAuthority(X any, setfunc ...SetFunc) error {
 			r.R_FAuthyDN = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported CurrentAuthority type %T provided without SetFunc instance", X)
+		return errorf("Unsupported CurrentAuthority type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1194,7 +1299,11 @@ func (r *SubArc) SetFirstAuthority(X any, setfunc ...SetFunc) error {
 	return r.SetFirstAuthority(v)
 }
 
-func (r SubArc) FirstAuthorityGetFunc(getfunc GetFunc) (any, error) {
+/*
+FirstAuthorityGetFunc processes the R_FAuthyDN field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r SubArc) FirstAuthorityGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1235,11 +1344,16 @@ SetSponsor does not perform any useful task, as Sponsors
 do not apply to root arc registrations. This method exists
 only to satisfy Go interface requirements.
 */
-func (r *RootArc) SetSponsor(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetSponsor(X any, setfunc ...GetOrSetFunc) error {
 	return errorf("Sponsor not applicable to %T", r)
 }
 
-func (r RootArc) SponsorGetFunc(getfunc GetFunc) (any, error) {
+/*
+SponsorGetFunc does not perform any useful task, as Sponsors
+do not apply to root arc registrations. This method exists
+only to satisfy Go interface requirements.
+*/
+func (r RootArc) SponsorGetFunc(getfunc GetOrSetFunc) (any, error) {
 	return nil, errorf("Sponsor not applicable to %T", r)
 }
 
@@ -1271,7 +1385,7 @@ func (r SubArc) CombinedSponsor() *Sponsor { return r.R_SAuthy }
 SetSponsor appends one or more string slice DN values
 to the receiver's R_SAuthyDN field.
 */
-func (r *SubArc) SetSponsor(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetSponsor(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_SAuthyDN = append(r.R_SAuthyDN, assert) // append
@@ -1280,7 +1394,7 @@ func (r *SubArc) SetSponsor(X any, setfunc ...SetFunc) error {
 			r.R_SAuthyDN = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported Sponsor type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Sponsor type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1291,7 +1405,11 @@ func (r *SubArc) SetSponsor(X any, setfunc ...SetFunc) error {
 	return r.SetSponsor(v)
 }
 
-func (r SubArc) SponsorGetFunc(getfunc GetFunc) (any, error) {
+/*
+SponsorGetFunc processes the R_SAuthyDN field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r SubArc) SponsorGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1326,11 +1444,15 @@ func (r RootArc) DiscloseTo() []string {
 SetDiscloseTo does not perform any useful task and
 exists only to satisfy Go interface requirements.
 */
-func (r *RootArc) SetDiscloseTo(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetDiscloseTo(X any, setfunc ...GetOrSetFunc) error {
 	return errorf("DiscloseTo not applicable to %T", r)
 }
 
-func (r RootArc) DiscloseToGetFunc(getfunc GetFunc) (any, error) {
+/*
+DiscloseToGetFunc does not perform any useful task and
+exists only to satisfy Go interface requirements.
+*/
+func (r RootArc) DiscloseToGetFunc(getfunc GetOrSetFunc) (any, error) {
 	return nil, errorf("DiscloseTo not applicable to %T", r)
 }
 
@@ -1348,7 +1470,7 @@ func (r SubArc) DiscloseTo() []string {
 SetDiscloseTo appends one or more string slice DN values
 to the receiver's R_DiscloseTo field.
 */
-func (r *SubArc) SetDiscloseTo(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetDiscloseTo(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_DiscloseTo = append(r.R_DiscloseTo, assert) // append
@@ -1357,7 +1479,7 @@ func (r *SubArc) SetDiscloseTo(X any, setfunc ...SetFunc) error {
 			r.R_DiscloseTo = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported DiscloseTo type %T provided without SetFunc instance", X)
+		return errorf("Unsupported DiscloseTo type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1368,7 +1490,11 @@ func (r *SubArc) SetDiscloseTo(X any, setfunc ...SetFunc) error {
 	return r.SetDiscloseTo(v)
 }
 
-func (r SubArc) DiscloseToGetFunc(getfunc GetFunc) (any, error) {
+/*
+DiscloseToGetFunc processes the R_DiscloseTo field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r SubArc) DiscloseToGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1389,7 +1515,7 @@ func (r RootArc) IRI() []string {
 SetIRI appends one or more string slice DN values
 to the receiver's R_IRI field.
 */
-func (r *RootArc) SetIRI(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetIRI(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_IRI = append(r.R_IRI, assert) // append
@@ -1398,7 +1524,7 @@ func (r *RootArc) SetIRI(X any, setfunc ...SetFunc) error {
 			r.R_IRI = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported IRI type %T provided without SetFunc instance", X)
+		return errorf("Unsupported IRI type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1409,7 +1535,12 @@ func (r *RootArc) SetIRI(X any, setfunc ...SetFunc) error {
 	return r.SetIRI(v)
 }
 
-func (r RootArc) IRIGetFunc(getfunc GetFunc) (any, error) {
+/*
+IRIGetFunc processes the R_IRI field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r RootArc) IRIGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1430,7 +1561,7 @@ func (r SubArc) IRI() []string {
 SetIRI appends one or more string slice DN values
 to the receiver's R_IRI field.
 */
-func (r *SubArc) SetIRI(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetIRI(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_IRI = append(r.R_IRI, assert) // append
@@ -1439,7 +1570,7 @@ func (r *SubArc) SetIRI(X any, setfunc ...SetFunc) error {
 			r.R_IRI = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported IRI type %T provided without SetFunc instance", X)
+		return errorf("Unsupported IRI type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1450,7 +1581,12 @@ func (r *SubArc) SetIRI(X any, setfunc ...SetFunc) error {
 	return r.SetIRI(v)
 }
 
-func (r SubArc) IRIGetFunc(getfunc GetFunc) (any, error) {
+/*
+IRIGetFunc processes the R_IRI field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r SubArc) IRIGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1471,7 +1607,7 @@ func (r RootArc) UnicodeValue() []string {
 SetUnicodeValue appends one or more string slice DN values
 to the receiver's R_UVal field.
 */
-func (r *RootArc) SetUnicodeValue(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetUnicodeValue(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_UVal = append(r.R_UVal, assert) // append
@@ -1480,7 +1616,7 @@ func (r *RootArc) SetUnicodeValue(X any, setfunc ...SetFunc) error {
 			r.R_UVal = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported UnicodeValue type %T provided without SetFunc instance", X)
+		return errorf("Unsupported UnicodeValue type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1491,7 +1627,12 @@ func (r *RootArc) SetUnicodeValue(X any, setfunc ...SetFunc) error {
 	return r.SetUnicodeValue(v)
 }
 
-func (r RootArc) UnicodeValueGetFunc(getfunc GetFunc) (any, error) {
+/*
+UnicodeValueGetFunc processes the R_UVal field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r RootArc) UnicodeValueGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1512,7 +1653,7 @@ func (r SubArc) UnicodeValue() []string {
 SetUnicodeValue appends one or more string slice DN values
 to the receiver's R_UVal field.
 */
-func (r *SubArc) SetUnicodeValue(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetUnicodeValue(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_UVal = append(r.R_UVal, assert) // append
@@ -1521,7 +1662,7 @@ func (r *SubArc) SetUnicodeValue(X any, setfunc ...SetFunc) error {
 			r.R_UVal = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported UnicodeValue type %T provided without SetFunc instance", X)
+		return errorf("Unsupported UnicodeValue type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1532,7 +1673,12 @@ func (r *SubArc) SetUnicodeValue(X any, setfunc ...SetFunc) error {
 	return r.SetUnicodeValue(v)
 }
 
-func (r SubArc) UnicodeValueGetFunc(getfunc GetFunc) (any, error) {
+/*
+UnicodeValueGetFunc processes the R_UVal field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r SubArc) UnicodeValueGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1553,7 +1699,7 @@ func (r RootArc) Info() []string {
 SetInfo assigns one or more string slice values to the
 receiver's R_Info field.
 */
-func (r *RootArc) SetInfo(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetInfo(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Info = append(r.R_Info, assert) // append
@@ -1562,7 +1708,7 @@ func (r *RootArc) SetInfo(X any, setfunc ...SetFunc) error {
 			r.R_Info = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported Information type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Information type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1573,7 +1719,12 @@ func (r *RootArc) SetInfo(X any, setfunc ...SetFunc) error {
 	return r.SetInfo(v)
 }
 
-func (r RootArc) InfoGetFunc(getfunc GetFunc) (any, error) {
+/*
+InfoGetFunc processes the R_Info field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r RootArc) InfoGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1594,7 +1745,7 @@ func (r SubArc) Info() []string {
 SetInfo assigns one or more string slice values to the
 receiver's R_Info field.
 */
-func (r *SubArc) SetInfo(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetInfo(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Info = append(r.R_Info, assert) // append
@@ -1603,7 +1754,7 @@ func (r *SubArc) SetInfo(X any, setfunc ...SetFunc) error {
 			r.R_Info = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported Information type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Information type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1614,7 +1765,12 @@ func (r *SubArc) SetInfo(X any, setfunc ...SetFunc) error {
 	return r.SetInfo(v)
 }
 
-func (r SubArc) InfoGetFunc(getfunc GetFunc) (any, error) {
+/*
+InfoGetFunc processes the R_Info field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r SubArc) InfoGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1635,7 +1791,7 @@ func (r RootArc) StdNameForm() []string {
 SetStdNameForm assigns one or more string slice values to the
 receiver's R_StdNF field.
 */
-func (r *RootArc) SetStdNameForm(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetStdNameForm(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_StdNF = append(r.R_StdNF, assert) // append
@@ -1644,7 +1800,7 @@ func (r *RootArc) SetStdNameForm(X any, setfunc ...SetFunc) error {
 			r.R_StdNF = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported StdNameForm type %T provided without SetFunc instance", X)
+		return errorf("Unsupported StdNameForm type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1655,7 +1811,12 @@ func (r *RootArc) SetStdNameForm(X any, setfunc ...SetFunc) error {
 	return r.SetStdNameForm(v)
 }
 
-func (r RootArc) StdNameFormGetFunc(getfunc GetFunc) (any, error) {
+/*
+StdNameFormGetFunc processes the R_StdNF field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r RootArc) StdNameFormGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1676,7 +1837,7 @@ func (r SubArc) StdNameForm() []string {
 SetStdNameForm assigns one or more string slice values to the
 receiver's R_StdNF field.
 */
-func (r *SubArc) SetStdNameForm(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetStdNameForm(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_StdNF = append(r.R_StdNF, assert) // append
@@ -1685,7 +1846,7 @@ func (r *SubArc) SetStdNameForm(X any, setfunc ...SetFunc) error {
 			r.R_StdNF = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported StdNameForm type %T provided without SetFunc instance", X)
+		return errorf("Unsupported StdNameForm type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1696,7 +1857,12 @@ func (r *SubArc) SetStdNameForm(X any, setfunc ...SetFunc) error {
 	return r.SetStdNameForm(v)
 }
 
-func (r SubArc) StdNameFormGetFunc(getfunc GetFunc) (any, error) {
+/*
+StdNameFormGetFunc processes the R_StdNF field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r SubArc) StdNameFormGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1717,7 +1883,7 @@ func (r RootArc) URI() []string {
 SetURI assigns one or more string slice values to the
 receiver's R_URI field.
 */
-func (r *RootArc) SetURI(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetURI(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_URI = append(r.R_URI, assert) // append
@@ -1726,7 +1892,7 @@ func (r *RootArc) SetURI(X any, setfunc ...SetFunc) error {
 			r.R_URI = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported URI type %T provided without SetFunc instance", X)
+		return errorf("Unsupported URI type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1737,7 +1903,12 @@ func (r *RootArc) SetURI(X any, setfunc ...SetFunc) error {
 	return r.SetURI(v)
 }
 
-func (r RootArc) URIGetFunc(getfunc GetFunc) (any, error) {
+/*
+URIGetFunc processes the R_URI field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r RootArc) URIGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1758,7 +1929,7 @@ func (r SubArc) URI() []string {
 SetURI assigns one or more string slice values to the
 receiver's R_URI field.
 */
-func (r *SubArc) SetURI(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetURI(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_URI = append(r.R_URI, assert) // append
@@ -1767,7 +1938,7 @@ func (r *SubArc) SetURI(X any, setfunc ...SetFunc) error {
 			r.R_URI = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported URI type %T provided without SetFunc instance", X)
+		return errorf("Unsupported URI type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1778,7 +1949,12 @@ func (r *SubArc) SetURI(X any, setfunc ...SetFunc) error {
 	return r.SetURI(v)
 }
 
-func (r SubArc) URIGetFunc(getfunc GetFunc) (any, error) {
+/*
+URIGetFunc processes the R_URI field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r SubArc) URIGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1795,14 +1971,18 @@ func (r RootArc) LongArc() []string {
 }
 
 /*
-SetLongArc assigns one or more string slice values to the
-receiver's R_LongArc field.
+SetLongArc does not perform any useful task, and exists only
+to satisfy Go interface requirements.
 */
-func (r *RootArc) SetLongArc(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetLongArc(X any, setfunc ...GetOrSetFunc) error {
 	return errorf("LongArc not applicable to %T", r)
 }
 
-func (r RootArc) LongArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+LongArcGetFunc does not perform any useful task, and exists only
+to satisfy Go interface requirements.
+*/
+func (r RootArc) LongArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	return nil, errorf("LongArc not applicable to %T", r)
 }
 
@@ -1824,7 +2004,7 @@ func (r SubArc) LongArc() []string {
 SetLongArc assigns one or more string slice values to the
 receiver's R_LongArc field.
 */
-func (r *SubArc) SetLongArc(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetLongArc(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_LongArc = append(r.R_LongArc, assert) // append
@@ -1833,7 +2013,7 @@ func (r *SubArc) SetLongArc(X any, setfunc ...SetFunc) error {
 			r.R_LongArc = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported LongArc type %T provided without SetFunc instance", X)
+		return errorf("Unsupported LongArc type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1844,7 +2024,12 @@ func (r *SubArc) SetLongArc(X any, setfunc ...SetFunc) error {
 	return r.SetLongArc(v)
 }
 
-func (r SubArc) LongArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+LongArcGetFunc processes the R_LongArc field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r SubArc) LongArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1860,15 +2045,20 @@ is not applicable to entries of objectClass 'x660RootArc'.
 func (r RootArc) Range() string { return `` }
 
 /*
-SetRange performs no useful task, as root registrations
-cannot define ranges. This method exists only to satisfy
-Go interface requirements.
+SetRange does not perform any useful task, as root registrations
+cannot define ranges. This method exists only to satisfy Go
+interface requirements.
 */
-func (r *RootArc) SetRange(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetRange(X any, setfunc ...GetOrSetFunc) error {
 	return errorf("Range not applicable to %T", r)
 }
 
-func (r RootArc) RangeGetFunc(getfunc GetFunc) (any, error) {
+/*
+RangeGetFunc does not perform any useful task, as root registrations
+cannot define ranges. This method exists only to satisfy Go interface
+requirements.
+*/
+func (r RootArc) RangeGetFunc(getfunc GetOrSetFunc) (any, error) {
 	return nil, errorf("Range not applicable to %T", r)
 }
 
@@ -1884,13 +2074,13 @@ func (r SubArc) Range() string {
 SetRange assigns a string value, which can be any unsigned
 number OR a negative -1.
 */
-func (r *SubArc) SetRange(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetRange(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Range = assert
 			return nil
 		}
-		return errorf("Unsupported Range type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Range type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1901,7 +2091,12 @@ func (r *SubArc) SetRange(X any, setfunc ...SetFunc) error {
 	return r.SetRange(v)
 }
 
-func (r SubArc) RangeGetFunc(getfunc GetFunc) (any, error) {
+/*
+RangeGetFunc processes the R_Range field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r SubArc) RangeGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1923,11 +2118,16 @@ SetLeafNode performs no useful task. This method exists only to
 satisfy Go interface requirements, and does not apply to root
 registrations.
 */
-func (r *RootArc) SetLeafNode(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetLeafNode(X any, setfunc ...GetOrSetFunc) error {
 	return errorf("Leaf node not applicable to %T", r)
 }
 
-func (r RootArc) LeafNodeGetFunc(getfunc GetFunc) (any, error) {
+/*
+LeafNodeGetFunc performs no useful task. This method exists only to
+satisfy Go interface requirements, and does not apply to root
+registrations.
+*/
+func (r RootArc) LeafNodeGetFunc(getfunc GetOrSetFunc) (any, error) {
 	return nil, errorf("Leaf node not applicable to %T", r)
 }
 
@@ -1943,7 +2143,7 @@ func (r SubArc) LeafNode() bool {
 SetLeafNode assigns the provided boolean value to the receiver's
 R_LeafNode field.
 */
-func (r *SubArc) SetLeafNode(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetLeafNode(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_LeafNode = assert
@@ -1957,7 +2157,7 @@ func (r *SubArc) SetLeafNode(X any, setfunc ...SetFunc) error {
 			}
 			return nil
 		}
-		return errorf("Unsupported LeafNode type %T provided without SetFunc instance", X)
+		return errorf("Unsupported LeafNode type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -1968,7 +2168,12 @@ func (r *SubArc) SetLeafNode(X any, setfunc ...SetFunc) error {
 	return r.SetLeafNode(v)
 }
 
-func (r SubArc) LeafNodeGetFunc(getfunc GetFunc) (any, error) {
+/*
+LeafNodeGetFunc processes the R_LeafNode field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r SubArc) LeafNodeGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -1990,11 +2195,16 @@ SetFrozen performs no useful task. This method exists only to
 satisfy Go interface requirements, and does not apply to root
 registrations.
 */
-func (r *RootArc) SetFrozen(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetFrozen(X any, setfunc ...GetOrSetFunc) error {
 	return errorf("Frozen not applicable to %T", r)
 }
 
-func (r RootArc) FrozenNodeGetFunc(getfunc GetFunc) (any, error) {
+/*
+FrozenGetFunc performs no useful task. This method exists only to
+satisfy Go interface requirements, and does not apply to root
+registrations.
+*/
+func (r RootArc) FrozenNodeGetFunc(getfunc GetOrSetFunc) (any, error) {
 	return nil, errorf("Leaf node not applicable to %T", r)
 }
 
@@ -2010,7 +2220,7 @@ func (r SubArc) Frozen() bool {
 SetFrozen assigns the provided boolean value to the receiver's
 R_Frozen field.
 */
-func (r *SubArc) SetFrozen(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetFrozen(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Frozen = assert
@@ -2024,7 +2234,7 @@ func (r *SubArc) SetFrozen(X any, setfunc ...SetFunc) error {
 			}
 			return nil
 		}
-		return errorf("Unsupported Frozen type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Frozen type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2035,7 +2245,12 @@ func (r *SubArc) SetFrozen(X any, setfunc ...SetFunc) error {
 	return r.SetFrozen(v)
 }
 
-func (r SubArc) FrozenGetFunc(getfunc GetFunc) (any, error) {
+/*
+FrozenGetFunc processes the R_LeafNode field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r SubArc) FrozenGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2055,7 +2270,7 @@ func (r RootArc) SubArc() []string {
 SetSubArc appends one or more string DN values to
 the receiver's R_SubArc field.
 */
-func (r *RootArc) SetSubArc(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetSubArc(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_SubArc = append(r.R_SubArc, assert) // append
@@ -2064,7 +2279,7 @@ func (r *RootArc) SetSubArc(X any, setfunc ...SetFunc) error {
 			r.R_SubArc = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported SubArc type %T provided without SetFunc instance", X)
+		return errorf("Unsupported SubArc type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2075,7 +2290,12 @@ func (r *RootArc) SetSubArc(X any, setfunc ...SetFunc) error {
 	return r.SetSubArc(v)
 }
 
-func (r RootArc) SubArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+SubArcGetFunc processes the R_SubArc field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r RootArc) SubArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2095,7 +2315,7 @@ func (r SubArc) SubArc() []string {
 SetSubArc appends one or more string DN values to
 the receiver's R_SubArc field.
 */
-func (r *SubArc) SetSubArc(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetSubArc(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_SubArc = append(r.R_SubArc, assert) // append
@@ -2104,7 +2324,7 @@ func (r *SubArc) SetSubArc(X any, setfunc ...SetFunc) error {
 			r.R_SubArc = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported SubArc type %T provided without SetFunc instance", X)
+		return errorf("Unsupported SubArc type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2115,7 +2335,12 @@ func (r *SubArc) SetSubArc(X any, setfunc ...SetFunc) error {
 	return r.SetSubArc(v)
 }
 
-func (r SubArc) SubArcGetFunc(getfunc GetFunc) (any, error) {
+/*
+SubArcGetFunc processes the R_SubArc field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r SubArc) SubArcGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2135,11 +2360,16 @@ SetStatus performs no useful task, and exists only to satisfy
 Go interface requirements. Status values do not apply to root
 registrations.
 */
-func (r *RootArc) SetStatus(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetStatus(X any, setfunc ...GetOrSetFunc) error {
 	return errorf("Status not applicable to %T", r)
 }
 
-func (r RootArc) StatusGetFunc(getfunc GetFunc) (any, error) {
+/*
+StatusGetFunc performs no useful task, and exists only to satisfy
+Go interface requirements. Status values do not apply to root
+registrations.
+*/
+func (r RootArc) StatusGetFunc(getfunc GetOrSetFunc) (any, error) {
 	return nil, errorf("Leaf node not applicable to %T", r)
 }
 
@@ -2155,13 +2385,13 @@ func (r SubArc) Status() string {
 SetStatus assigns a string value to the receiver's R_Status
 field.
 */
-func (r *SubArc) SetStatus(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetStatus(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Status = assert
 			return nil
 		}
-		return errorf("Unsupported Status type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Status type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2172,7 +2402,12 @@ func (r *SubArc) SetStatus(X any, setfunc ...SetFunc) error {
 	return r.SetStatus(v)
 }
 
-func (r SubArc) StatusGetFunc(getfunc GetFunc) (any, error) {
+/*
+StatusGetFunc processes the R_Status field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r SubArc) StatusGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2277,13 +2512,13 @@ func (r FirstAuthority) DN() string {
 /*
 SetDN assigns the provided string value to the receiver's R_DN field.
 */
-func (r *FirstAuthority) SetDN(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetDN(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_DN = assert
 			return nil
 		}
-		return errorf("Unsupported DN type %T provided without SetFunc instance", X)
+		return errorf("Unsupported DN type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2294,7 +2529,12 @@ func (r *FirstAuthority) SetDN(X any, setfunc ...SetFunc) error {
 	return r.SetDN(v)
 }
 
-func (r FirstAuthority) DNGetFunc(getfunc GetFunc) (any, error) {
+/*
+DNGetFunc processes the R_DN field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r FirstAuthority) DNGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2312,13 +2552,13 @@ func (r CurrentAuthority) DN() string {
 /*
 SetDN assigns the provided string value to the receiver's R_DN field.
 */
-func (r *CurrentAuthority) SetDN(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetDN(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_DN = assert
 			return nil
 		}
-		return errorf("Unsupported DN type %T provided without SetFunc instance", X)
+		return errorf("Unsupported DN type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2329,7 +2569,12 @@ func (r *CurrentAuthority) SetDN(X any, setfunc ...SetFunc) error {
 	return r.SetDN(v)
 }
 
-func (r CurrentAuthority) DNGetFunc(getfunc GetFunc) (any, error) {
+/*
+DNGetFunc processes the R_DN field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r CurrentAuthority) DNGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2347,13 +2592,13 @@ func (r Sponsor) DN() string {
 /*
 SetDN assigns the provided string value to the receiver's R_DN field.
 */
-func (r *Sponsor) SetDN(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetDN(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_DN = assert
 			return nil
 		}
-		return errorf("Unsupported DN type %T provided without SetFunc instance", X)
+		return errorf("Unsupported DN type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2364,7 +2609,12 @@ func (r *Sponsor) SetDN(X any, setfunc ...SetFunc) error {
 	return r.SetDN(v)
 }
 
-func (r Sponsor) DNGetFunc(getfunc GetFunc) (any, error) {
+/*
+DNGetFunc processes the R_DN field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r Sponsor) DNGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2379,7 +2629,12 @@ func (r FirstAuthority) RegistrantID() string {
 	return r.R_Id
 }
 
-func (r FirstAuthority) RegistrantIDGetFunc(getfunc GetFunc) (any, error) {
+/*
+RegistrantIDGetFunc processes the R_Id field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r FirstAuthority) RegistrantIDGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2394,7 +2649,12 @@ func (r CurrentAuthority) RegistrantID() string {
 	return r.R_Id
 }
 
-func (r CurrentAuthority) RegistrantIDGetFunc(getfunc GetFunc) (any, error) {
+/*
+RegistrantIDGetFunc processes the R_Id field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r CurrentAuthority) RegistrantIDGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2409,7 +2669,12 @@ func (r Sponsor) RegistrantID() string {
 	return r.R_Id
 }
 
-func (r Sponsor) RegistrantIDGetFunc(getfunc GetFunc) (any, error) {
+/*
+RegistrantIDGetFunc processes the R_Id field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r Sponsor) RegistrantIDGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2425,7 +2690,12 @@ func (r RootArc) CreateTime() string {
 	return r.R_Created
 }
 
-func (r RootArc) CreateTimeGetFunc(getfunc GetFunc) (any, error) {
+/*
+CreateTimeGetFunc processes the R_Created field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r RootArc) CreateTimeGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2436,13 +2706,13 @@ func (r RootArc) CreateTimeGetFunc(getfunc GetFunc) (any, error) {
 /*
 SetCreateTime assigns a string-based generalizedTime value to the receiver's R_Created field.
 */
-func (r *RootArc) SetCreateTime(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetCreateTime(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Created = assert
 			return nil
 		}
-		return errorf("Unsupported CreateTime type %T provided without SetFunc instance", X)
+		return errorf("Unsupported CreateTime type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2461,7 +2731,12 @@ func (r SubArc) CreateTime() string {
 	return r.R_Created
 }
 
-func (r SubArc) CreateTimeGetFunc(getfunc GetFunc) (any, error) {
+/*
+CreateTimeGetFunc processes the R_Created field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r SubArc) CreateTimeGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2472,13 +2747,13 @@ func (r SubArc) CreateTimeGetFunc(getfunc GetFunc) (any, error) {
 /*
 SetCreateTime assigns a string-based generalizedTime value instance to the receiver's R_Created field.
 */
-func (r *SubArc) SetCreateTime(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetCreateTime(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Created = assert
 			return nil
 		}
-		return errorf("Unsupported CreateTime type %T provided without SetFunc instance", X)
+		return errorf("Unsupported CreateTime type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2498,7 +2773,12 @@ func (r RootArc) ModifyTime() []string {
 	return r.R_Modified
 }
 
-func (r RootArc) ModifyTimeGetFunc(getfunc GetFunc) (any, error) {
+/*
+ModifyTimeGetFunc processes the R_Modified field through the provided
+GetOrSetFunc instance, returning an interface value alongside
+an error.
+*/
+func (r RootArc) ModifyTimeGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2510,7 +2790,7 @@ func (r RootArc) ModifyTimeGetFunc(getfunc GetFunc) (any, error) {
 SetModifyTime appends one or more instances of string-based generalizedTime
 value to the receiver's R_Modified field.
 */
-func (r *RootArc) SetModifyTime(X any, setfunc ...SetFunc) error {
+func (r *RootArc) SetModifyTime(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Modified = append(r.R_Modified, assert) // append
@@ -2519,7 +2799,7 @@ func (r *RootArc) SetModifyTime(X any, setfunc ...SetFunc) error {
 			r.R_Modified = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported ModifyTime type %T provided without SetFunc instance", X)
+		return errorf("Unsupported ModifyTime type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2539,7 +2819,11 @@ func (r SubArc) ModifyTime() (T []string) {
 	return r.R_Modified
 }
 
-func (r SubArc) ModifyTimeGetFunc(getfunc GetFunc) (any, error) {
+/*
+ModifyTimeGetFunc processes the R_Modified field through the provided
+GetOrSetFunc instance, returning an interface value alongside an error.
+*/
+func (r SubArc) ModifyTimeGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2551,7 +2835,7 @@ func (r SubArc) ModifyTimeGetFunc(getfunc GetFunc) (any, error) {
 SetModifyTime appends one or more instances of string-based generalizedTime
 value to the receiver's R_Modified field.
 */
-func (r *SubArc) SetModifyTime(X any, setfunc ...SetFunc) error {
+func (r *SubArc) SetModifyTime(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Modified = append(r.R_Modified, assert) // append
@@ -2560,7 +2844,7 @@ func (r *SubArc) SetModifyTime(X any, setfunc ...SetFunc) error {
 			r.R_Modified = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported ModifyTime type %T provided without SetFunc instance", X)
+		return errorf("Unsupported ModifyTime type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2582,13 +2866,13 @@ func (r FirstAuthority) CN() string {
 SetCN assigns the provided string value to the receiver's
 R_CN field.
 */
-func (r *FirstAuthority) SetCN(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetCN(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_CN = assert
 			return nil
 		}
-		return errorf("Unsupported CN type %T provided without SetFunc instance", X)
+		return errorf("Unsupported CN type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2599,7 +2883,11 @@ func (r *FirstAuthority) SetCN(X any, setfunc ...SetFunc) error {
 	return r.SetCN(v)
 }
 
-func (r FirstAuthority) CNGetFunc(getfunc GetFunc) (any, error) {
+/*
+CNGetFunc processes the R_CN field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) CNGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2618,13 +2906,13 @@ func (r CurrentAuthority) CN() string {
 SetCN assigns the provided string value to the receiver's
 R_CN field.
 */
-func (r *CurrentAuthority) SetCN(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetCN(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_CN = assert
 			return nil
 		}
-		return errorf("Unsupported CN type %T provided without SetFunc instance", X)
+		return errorf("Unsupported CN type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2635,7 +2923,11 @@ func (r *CurrentAuthority) SetCN(X any, setfunc ...SetFunc) error {
 	return r.SetCN(v)
 }
 
-func (r CurrentAuthority) CNGetFunc(getfunc GetFunc) (any, error) {
+/*
+CNGetFunc processes the R_CN field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) CNGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2654,13 +2946,13 @@ func (r Sponsor) CN() string {
 SetCN assigns the provided string value to the receiver's
 R_CN field.
 */
-func (r *Sponsor) SetCN(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetCN(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_CN = assert
 			return nil
 		}
-		return errorf("Unsupported CN type %T provided without SetFunc instance", X)
+		return errorf("Unsupported CN type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2671,7 +2963,11 @@ func (r *Sponsor) SetCN(X any, setfunc ...SetFunc) error {
 	return r.SetCN(v)
 }
 
-func (r Sponsor) CNGetFunc(getfunc GetFunc) (any, error) {
+/*
+CNGetFunc processes the R_CN field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) CNGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2690,13 +2986,13 @@ func (r FirstAuthority) L() string {
 SetL assigns the provided string value to the receiver's
 R_L field.
 */
-func (r *FirstAuthority) SetL(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetL(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_L = assert
 			return nil
 		}
-		return errorf("Unsupported L type %T provided without SetFunc instance", X)
+		return errorf("Unsupported L type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2707,7 +3003,11 @@ func (r *FirstAuthority) SetL(X any, setfunc ...SetFunc) error {
 	return r.SetL(v)
 }
 
-func (r FirstAuthority) LGetFunc(getfunc GetFunc) (any, error) {
+/*
+LGetFunc processes the R_L field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) LGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2726,13 +3026,13 @@ func (r CurrentAuthority) L() string {
 SetL assigns the provided string value to the receiver's
 R_L field.
 */
-func (r *CurrentAuthority) SetL(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetL(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_L = assert
 			return nil
 		}
-		return errorf("Unsupported L type %T provided without SetFunc instance", X)
+		return errorf("Unsupported L type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2743,7 +3043,11 @@ func (r *CurrentAuthority) SetL(X any, setfunc ...SetFunc) error {
 	return r.SetL(v)
 }
 
-func (r CurrentAuthority) LGetFunc(getfunc GetFunc) (any, error) {
+/*
+LGetFunc processes the R_L field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) LGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2762,13 +3066,13 @@ func (r Sponsor) L() string {
 SetL assigns the provided string value to the receiver's
 R_L field.
 */
-func (r *Sponsor) SetL(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetL(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_L = assert
 			return nil
 		}
-		return errorf("Unsupported L type %T provided without SetFunc instance", X)
+		return errorf("Unsupported L type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2779,7 +3083,11 @@ func (r *Sponsor) SetL(X any, setfunc ...SetFunc) error {
 	return r.SetL(v)
 }
 
-func (r Sponsor) LGetFunc(getfunc GetFunc) (any, error) {
+/*
+LGetFunc processes the R_L field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) LGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2798,13 +3106,13 @@ func (r FirstAuthority) O() string {
 SetO assigns the provided string value to the receiver's
 R_O field.
 */
-func (r *FirstAuthority) SetO(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetO(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_O = assert
 			return nil
 		}
-		return errorf("Unsupported O type %T provided without SetFunc instance", X)
+		return errorf("Unsupported O type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2815,7 +3123,11 @@ func (r *FirstAuthority) SetO(X any, setfunc ...SetFunc) error {
 	return r.SetO(v)
 }
 
-func (r FirstAuthority) OGetFunc(getfunc GetFunc) (any, error) {
+/*
+OGetFunc processes the R_O field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) OGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2834,13 +3146,13 @@ func (r CurrentAuthority) O() string {
 SetO assigns the provided string value to the receiver's
 R_O field.
 */
-func (r *CurrentAuthority) SetO(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetO(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_O = assert
 			return nil
 		}
-		return errorf("Unsupported O type %T provided without SetFunc instance", X)
+		return errorf("Unsupported O type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2851,7 +3163,11 @@ func (r *CurrentAuthority) SetO(X any, setfunc ...SetFunc) error {
 	return r.SetO(v)
 }
 
-func (r CurrentAuthority) OGetFunc(getfunc GetFunc) (any, error) {
+/*
+OGetFunc processes the R_O field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) OGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2870,13 +3186,13 @@ func (r Sponsor) O() string {
 SetO assigns the provided string value to the receiver's
 R_O field.
 */
-func (r *Sponsor) SetO(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetO(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_O = assert
 			return nil
 		}
-		return errorf("Unsupported O type %T provided without SetFunc instance", X)
+		return errorf("Unsupported O type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2887,7 +3203,11 @@ func (r *Sponsor) SetO(X any, setfunc ...SetFunc) error {
 	return r.SetO(v)
 }
 
-func (r Sponsor) OGetFunc(getfunc GetFunc) (any, error) {
+/*
+OGetFunc processes the R_O field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) OGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2906,13 +3226,13 @@ func (r FirstAuthority) C() string {
 SetC assigns the provided string value to the receiver's
 R_C field.
 */
-func (r *FirstAuthority) SetC(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetC(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_C = assert
 			return nil
 		}
-		return errorf("Unsupported C type %T provided without SetFunc instance", X)
+		return errorf("Unsupported C type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2923,7 +3243,11 @@ func (r *FirstAuthority) SetC(X any, setfunc ...SetFunc) error {
 	return r.SetC(v)
 }
 
-func (r FirstAuthority) CGetFunc(getfunc GetFunc) (any, error) {
+/*
+CGetFunc processes the R_C field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) CGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2942,13 +3266,13 @@ func (r CurrentAuthority) C() string {
 SetC assigns the provided string value to the receiver's
 R_C field.
 */
-func (r *CurrentAuthority) SetC(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetC(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_C = assert
 			return nil
 		}
-		return errorf("Unsupported C type %T provided without SetFunc instance", X)
+		return errorf("Unsupported C type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2959,7 +3283,11 @@ func (r *CurrentAuthority) SetC(X any, setfunc ...SetFunc) error {
 	return r.SetC(v)
 }
 
-func (r CurrentAuthority) CGetFunc(getfunc GetFunc) (any, error) {
+/*
+CGetFunc processes the R_C field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) CGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -2978,13 +3306,13 @@ func (r Sponsor) C() string {
 SetC assigns the provided string value to the receiver's
 R_C field.
 */
-func (r *Sponsor) SetC(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetC(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_C = assert
 			return nil
 		}
-		return errorf("Unsupported C type %T provided without SetFunc instance", X)
+		return errorf("Unsupported C type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -2995,7 +3323,11 @@ func (r *Sponsor) SetC(X any, setfunc ...SetFunc) error {
 	return r.SetC(v)
 }
 
-func (r Sponsor) CGetFunc(getfunc GetFunc) (any, error) {
+/*
+CGetFunc processes the R_C field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) CGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3014,13 +3346,13 @@ func (r FirstAuthority) CO() string {
 SetCO assigns the provided string value to the receiver's
 R_CO field.
 */
-func (r *FirstAuthority) SetCO(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetCO(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_CO = assert
 			return nil
 		}
-		return errorf("Unsupported CO type %T provided without SetFunc instance", X)
+		return errorf("Unsupported CO type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3031,7 +3363,11 @@ func (r *FirstAuthority) SetCO(X any, setfunc ...SetFunc) error {
 	return r.SetCO(v)
 }
 
-func (r FirstAuthority) COGetFunc(getfunc GetFunc) (any, error) {
+/*
+COGetFunc processes the R_CO field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) COGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3050,13 +3386,13 @@ func (r CurrentAuthority) CO() string {
 SetCO assigns the provided string value to the receiver's
 R_CO field.
 */
-func (r *CurrentAuthority) SetCO(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetCO(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_CO = assert
 			return nil
 		}
-		return errorf("Unsupported CO type %T provided without SetFunc instance", X)
+		return errorf("Unsupported CO type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3067,7 +3403,11 @@ func (r *CurrentAuthority) SetCO(X any, setfunc ...SetFunc) error {
 	return r.SetCO(v)
 }
 
-func (r CurrentAuthority) COGetFunc(getfunc GetFunc) (any, error) {
+/*
+COGetFunc processes the R_CO field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) COGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3086,13 +3426,13 @@ func (r Sponsor) CO() string {
 SetCO assigns the provided string value to the receiver's
 R_CO field.
 */
-func (r *Sponsor) SetCO(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetCO(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_CO = assert
 			return nil
 		}
-		return errorf("Unsupported CO type %T provided without SetFunc instance", X)
+		return errorf("Unsupported CO type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3103,7 +3443,11 @@ func (r *Sponsor) SetCO(X any, setfunc ...SetFunc) error {
 	return r.SetCO(v)
 }
 
-func (r Sponsor) COGetFunc(getfunc GetFunc) (any, error) {
+/*
+COGetFunc processes the R_CO field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) COGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3122,13 +3466,13 @@ func (r FirstAuthority) ST() string {
 SetST assigns the provided string value to the receiver's
 R_ST field.
 */
-func (r *FirstAuthority) SetST(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetST(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_ST = assert
 			return nil
 		}
-		return errorf("Unsupported ST type %T provided without SetFunc instance", X)
+		return errorf("Unsupported ST type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3139,7 +3483,11 @@ func (r *FirstAuthority) SetST(X any, setfunc ...SetFunc) error {
 	return r.SetST(v)
 }
 
-func (r FirstAuthority) STGetFunc(getfunc GetFunc) (any, error) {
+/*
+STGetFunc processes the R_ST field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) STGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3158,13 +3506,13 @@ func (r CurrentAuthority) ST() string {
 SetST assigns the provided string value to the receiver's
 R_ST field.
 */
-func (r *CurrentAuthority) SetST(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetST(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_ST = assert
 			return nil
 		}
-		return errorf("Unsupported ST type %T provided without SetFunc instance", X)
+		return errorf("Unsupported ST type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3175,7 +3523,11 @@ func (r *CurrentAuthority) SetST(X any, setfunc ...SetFunc) error {
 	return r.SetST(v)
 }
 
-func (r CurrentAuthority) STGetFunc(getfunc GetFunc) (any, error) {
+/*
+STGetFunc processes the R_ST field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) STGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3194,13 +3546,13 @@ func (r Sponsor) ST() string {
 SetST assigns the provided string value to the receiver's
 R_ST field.
 */
-func (r *Sponsor) SetST(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetST(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_ST = assert
 			return nil
 		}
-		return errorf("Unsupported ST type %T provided without SetFunc instance", X)
+		return errorf("Unsupported ST type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3211,7 +3563,11 @@ func (r *Sponsor) SetST(X any, setfunc ...SetFunc) error {
 	return r.SetST(v)
 }
 
-func (r Sponsor) STGetFunc(getfunc GetFunc) (any, error) {
+/*
+STGetFunc processes the R_ST field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) STGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3230,13 +3586,13 @@ func (r FirstAuthority) Tel() string {
 SetTel assigns the provided string value to the receiver's
 R_Tel field.
 */
-func (r *FirstAuthority) SetTel(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetTel(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Tel = assert
 			return nil
 		}
-		return errorf("Unsupported Tel type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Tel type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3247,7 +3603,11 @@ func (r *FirstAuthority) SetTel(X any, setfunc ...SetFunc) error {
 	return r.SetTel(v)
 }
 
-func (r FirstAuthority) TelGetFunc(getfunc GetFunc) (any, error) {
+/*
+TelGetFunc processes the R_Tel field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) TelGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3266,13 +3626,13 @@ func (r CurrentAuthority) Tel() string {
 SetTel assigns the provided string value to the receiver's
 R_Tel field.
 */
-func (r *CurrentAuthority) SetTel(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetTel(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Tel = assert
 			return nil
 		}
-		return errorf("Unsupported Tel type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Tel type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3283,7 +3643,11 @@ func (r *CurrentAuthority) SetTel(X any, setfunc ...SetFunc) error {
 	return r.SetTel(v)
 }
 
-func (r CurrentAuthority) TelGetFunc(getfunc GetFunc) (any, error) {
+/*
+TelGetFunc processes the R_Tel field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) TelGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3302,13 +3666,13 @@ func (r Sponsor) Tel() string {
 SetTel assigns the provided string value to the receiver's
 R_Tel field.
 */
-func (r *Sponsor) SetTel(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetTel(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Tel = assert
 			return nil
 		}
-		return errorf("Unsupported Tel type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Tel type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3319,7 +3683,11 @@ func (r *Sponsor) SetTel(X any, setfunc ...SetFunc) error {
 	return r.SetTel(v)
 }
 
-func (r Sponsor) TelGetFunc(getfunc GetFunc) (any, error) {
+/*
+TelGetFunc processes the R_Tel field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) TelGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3338,13 +3706,13 @@ func (r FirstAuthority) Fax() string {
 SetFax assigns the provided string value to the receiver's
 R_Fax field.
 */
-func (r *FirstAuthority) SetFax(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetFax(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Fax = assert
 			return nil
 		}
-		return errorf("Unsupported Fax type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Fax type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3355,7 +3723,11 @@ func (r *FirstAuthority) SetFax(X any, setfunc ...SetFunc) error {
 	return r.SetFax(v)
 }
 
-func (r FirstAuthority) FaxGetFunc(getfunc GetFunc) (any, error) {
+/*
+FaxGetFunc processes the R_Fax field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) FaxGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3374,13 +3746,13 @@ func (r CurrentAuthority) Fax() string {
 SetFax assigns the provided string value to the receiver's
 R_Fax field.
 */
-func (r *CurrentAuthority) SetFax(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetFax(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Fax = assert
 			return nil
 		}
-		return errorf("Unsupported Fax type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Fax type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3391,7 +3763,11 @@ func (r *CurrentAuthority) SetFax(X any, setfunc ...SetFunc) error {
 	return r.SetFax(v)
 }
 
-func (r CurrentAuthority) FaxGetFunc(getfunc GetFunc) (any, error) {
+/*
+FaxGetFunc processes the R_Fax field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) FaxGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3410,13 +3786,13 @@ func (r Sponsor) Fax() string {
 SetFax assigns the provided string value to the receiver's
 R_Fax field.
 */
-func (r *Sponsor) SetFax(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetFax(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Fax = assert
 			return nil
 		}
-		return errorf("Unsupported Fax type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Fax type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3427,7 +3803,11 @@ func (r *Sponsor) SetFax(X any, setfunc ...SetFunc) error {
 	return r.SetFax(v)
 }
 
-func (r Sponsor) FaxGetFunc(getfunc GetFunc) (any, error) {
+/*
+FaxGetFunc processes the R_Fax field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) FaxGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3446,13 +3826,13 @@ func (r FirstAuthority) Title() string {
 SetTitle assigns the provided string value to the receiver's
 R_Title field.
 */
-func (r *FirstAuthority) SetTitle(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetTitle(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Title = assert
 			return nil
 		}
-		return errorf("Unsupported Title type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Title type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3463,7 +3843,11 @@ func (r *FirstAuthority) SetTitle(X any, setfunc ...SetFunc) error {
 	return r.SetTitle(v)
 }
 
-func (r FirstAuthority) TitleGetFunc(getfunc GetFunc) (any, error) {
+/*
+TitleGetFunc processes the R_Title field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) TitleGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3482,13 +3866,13 @@ func (r CurrentAuthority) Title() string {
 SetTitle assigns the provided string value to the receiver's
 R_Title field.
 */
-func (r *CurrentAuthority) SetTitle(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetTitle(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Title = assert
 			return nil
 		}
-		return errorf("Unsupported Title type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Title type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3499,7 +3883,11 @@ func (r *CurrentAuthority) SetTitle(X any, setfunc ...SetFunc) error {
 	return r.SetTitle(v)
 }
 
-func (r CurrentAuthority) TitleGetFunc(getfunc GetFunc) (any, error) {
+/*
+TitleGetFunc processes the R_Title field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) TitleGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3518,13 +3906,13 @@ func (r Sponsor) Title() string {
 SetTitle assigns the provided string value to the receiver's
 R_Title field.
 */
-func (r *Sponsor) SetTitle(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetTitle(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Title = assert
 			return nil
 		}
-		return errorf("Unsupported Title type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Title type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3535,7 +3923,11 @@ func (r *Sponsor) SetTitle(X any, setfunc ...SetFunc) error {
 	return r.SetTitle(v)
 }
 
-func (r Sponsor) TitleGetFunc(getfunc GetFunc) (any, error) {
+/*
+TitleGetFunc processes the R_Title field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) TitleGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3554,13 +3946,13 @@ func (r FirstAuthority) Email() string {
 SetEmail assigns the provided string value to the receiver's
 R_Email field.
 */
-func (r *FirstAuthority) SetEmail(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetEmail(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Email = assert
 			return nil
 		}
-		return errorf("Unsupported Email type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Email type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3571,7 +3963,11 @@ func (r *FirstAuthority) SetEmail(X any, setfunc ...SetFunc) error {
 	return r.SetEmail(v)
 }
 
-func (r FirstAuthority) EmailGetFunc(getfunc GetFunc) (any, error) {
+/*
+EmailGetFunc processes the R_Email field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) EmailGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3590,13 +3986,13 @@ func (r CurrentAuthority) Email() string {
 SetEmail assigns the provided string value to the receiver's
 R_Email field.
 */
-func (r *CurrentAuthority) SetEmail(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetEmail(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Email = assert
 			return nil
 		}
-		return errorf("Unsupported Email type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Email type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3607,7 +4003,11 @@ func (r *CurrentAuthority) SetEmail(X any, setfunc ...SetFunc) error {
 	return r.SetEmail(v)
 }
 
-func (r CurrentAuthority) EmailGetFunc(getfunc GetFunc) (any, error) {
+/*
+EmailGetFunc processes the R_Email field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) EmailGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3626,13 +4026,13 @@ func (r Sponsor) Email() string {
 SetEmail assigns the provided string value to the receiver's
 R_Email field.
 */
-func (r *Sponsor) SetEmail(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetEmail(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Email = assert
 			return nil
 		}
-		return errorf("Unsupported Email type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Email type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3643,7 +4043,11 @@ func (r *Sponsor) SetEmail(X any, setfunc ...SetFunc) error {
 	return r.SetEmail(v)
 }
 
-func (r Sponsor) EmailGetFunc(getfunc GetFunc) (any, error) {
+/*
+EmailGetFunc processes the R_Email field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) EmailGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3662,13 +4066,13 @@ func (r FirstAuthority) POBox() string {
 SetPOBox assigns the provided string value to the receiver's
 R_POBox field.
 */
-func (r *FirstAuthority) SetPOBox(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetPOBox(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_POBox = assert
 			return nil
 		}
-		return errorf("Unsupported POBox type %T provided without SetFunc instance", X)
+		return errorf("Unsupported POBox type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3679,7 +4083,11 @@ func (r *FirstAuthority) SetPOBox(X any, setfunc ...SetFunc) error {
 	return r.SetPOBox(v)
 }
 
-func (r FirstAuthority) POBoxGetFunc(getfunc GetFunc) (any, error) {
+/*
+POBoxGetFunc processes the R_POBox field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) POBoxGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3698,13 +4106,13 @@ func (r CurrentAuthority) POBox() string {
 SetPOBox assigns the provided string value to the receiver's
 R_POBox field.
 */
-func (r *CurrentAuthority) SetPOBox(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetPOBox(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_POBox = assert
 			return nil
 		}
-		return errorf("Unsupported POBox type %T provided without SetFunc instance", X)
+		return errorf("Unsupported POBox type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3715,7 +4123,11 @@ func (r *CurrentAuthority) SetPOBox(X any, setfunc ...SetFunc) error {
 	return r.SetPOBox(v)
 }
 
-func (r CurrentAuthority) POBoxGetFunc(getfunc GetFunc) (any, error) {
+/*
+POBoxGetFunc processes the R_POBox field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) POBoxGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3734,13 +4146,13 @@ func (r Sponsor) POBox() string {
 SetPOBox assigns the provided string value to the receiver's
 R_POBox field.
 */
-func (r *Sponsor) SetPOBox(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetPOBox(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_POBox = assert
 			return nil
 		}
-		return errorf("Unsupported POBox type %T provided without SetFunc instance", X)
+		return errorf("Unsupported POBox type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3751,7 +4163,11 @@ func (r *Sponsor) SetPOBox(X any, setfunc ...SetFunc) error {
 	return r.SetPOBox(v)
 }
 
-func (r Sponsor) POBoxGetFunc(getfunc GetFunc) (any, error) {
+/*
+POBoxGetFunc processes the R_POBox field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) POBoxGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3770,13 +4186,13 @@ func (r FirstAuthority) PostalAddress() string {
 SetPostalAddress assigns the provided string value to the receiver's
 R_PAddr field.
 */
-func (r *FirstAuthority) SetPostalAddress(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetPostalAddress(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_PAddr = assert
 			return nil
 		}
-		return errorf("Unsupported PostalAddress type %T provided without SetFunc instance", X)
+		return errorf("Unsupported PostalAddress type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3787,7 +4203,11 @@ func (r *FirstAuthority) SetPostalAddress(X any, setfunc ...SetFunc) error {
 	return r.SetPostalAddress(v)
 }
 
-func (r FirstAuthority) PostalAddressGetFunc(getfunc GetFunc) (any, error) {
+/*
+PostalAddressGetFunc processes the R_PAddr field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) PostalAddressGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3806,13 +4226,13 @@ func (r CurrentAuthority) PostalAddress() string {
 SetPostalAddress assigns the provided string value to the receiver's
 R_PAddr field.
 */
-func (r *CurrentAuthority) SetPostalAddress(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetPostalAddress(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_PAddr = assert
 			return nil
 		}
-		return errorf("Unsupported PostalAddress type %T provided without SetFunc instance", X)
+		return errorf("Unsupported PostalAddress type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3823,7 +4243,11 @@ func (r *CurrentAuthority) SetPostalAddress(X any, setfunc ...SetFunc) error {
 	return r.SetPostalAddress(v)
 }
 
-func (r CurrentAuthority) PostalAddressGetFunc(getfunc GetFunc) (any, error) {
+/*
+PostalAddressGetFunc processes the R_PAddr field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) PostalAddressGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3842,13 +4266,13 @@ func (r Sponsor) PostalAddress() string {
 SetPostalAddress assigns the provided string value to the receiver's
 R_PAddr field.
 */
-func (r *Sponsor) SetPostalAddress(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetPostalAddress(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_PAddr = assert
 			return nil
 		}
-		return errorf("Unsupported PostalAddress type %T provided without SetFunc instance", X)
+		return errorf("Unsupported PostalAddress type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3859,7 +4283,11 @@ func (r *Sponsor) SetPostalAddress(X any, setfunc ...SetFunc) error {
 	return r.SetPostalAddress(v)
 }
 
-func (r Sponsor) PostalAddressGetFunc(getfunc GetFunc) (any, error) {
+/*
+PostalAddressGetFunc processes the R_PAddr field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) PostalAddressGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3878,13 +4306,13 @@ func (r FirstAuthority) PostalCode() string {
 SetPostalCode assigns the provided string value to the receiver's
 R_PCode field.
 */
-func (r *FirstAuthority) SetPostalCode(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetPostalCode(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_PCode = assert
 			return nil
 		}
-		return errorf("Unsupported PostalCode type %T provided without SetFunc instance", X)
+		return errorf("Unsupported PostalCode type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3895,7 +4323,11 @@ func (r *FirstAuthority) SetPostalCode(X any, setfunc ...SetFunc) error {
 	return r.SetPostalCode(v)
 }
 
-func (r FirstAuthority) PostalCodeGetFunc(getfunc GetFunc) (any, error) {
+/*
+PostalCodeGetFunc processes the R_PCode field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) PostalCodeGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3914,13 +4346,13 @@ func (r CurrentAuthority) PostalCode() string {
 SetPostalCode assigns the provided string value to the receiver's
 R_PCode field.
 */
-func (r *CurrentAuthority) SetPostalCode(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetPostalCode(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_PCode = assert
 			return nil
 		}
-		return errorf("Unsupported PostalCode type %T provided without SetFunc instance", X)
+		return errorf("Unsupported PostalCode type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3931,7 +4363,11 @@ func (r *CurrentAuthority) SetPostalCode(X any, setfunc ...SetFunc) error {
 	return r.SetPostalCode(v)
 }
 
-func (r CurrentAuthority) PostalCodeGetFunc(getfunc GetFunc) (any, error) {
+/*
+PostalCodeGetFunc processes the R_PCode field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) PostalCodeGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3950,13 +4386,13 @@ func (r Sponsor) PostalCode() string {
 SetPostalCode assigns the provided string value to the receiver's
 R_PCode field.
 */
-func (r *Sponsor) SetPostalCode(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetPostalCode(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_PCode = assert
 			return nil
 		}
-		return errorf("Unsupported PostalCode type %T provided without SetFunc instance", X)
+		return errorf("Unsupported PostalCode type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -3967,7 +4403,11 @@ func (r *Sponsor) SetPostalCode(X any, setfunc ...SetFunc) error {
 	return r.SetPostalCode(v)
 }
 
-func (r Sponsor) PostalCodeGetFunc(getfunc GetFunc) (any, error) {
+/*
+PostalCodeGetFunc processes the R_PCode field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) PostalCodeGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -3986,13 +4426,13 @@ func (r FirstAuthority) Mobile() string {
 SetMobile assigns the provided string value to the receiver's
 R_Mobile field.
 */
-func (r *FirstAuthority) SetMobile(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetMobile(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Mobile = assert
 			return nil
 		}
-		return errorf("Unsupported Mobile type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Mobile type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4003,7 +4443,11 @@ func (r *FirstAuthority) SetMobile(X any, setfunc ...SetFunc) error {
 	return r.SetMobile(v)
 }
 
-func (r FirstAuthority) MobileGetFunc(getfunc GetFunc) (any, error) {
+/*
+MobileGetFunc processes the R_Mobile field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) MobileGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -4022,13 +4466,13 @@ func (r CurrentAuthority) Mobile() string {
 SetMobile assigns the provided string value to the receiver's
 R_Mobile field.
 */
-func (r *CurrentAuthority) SetMobile(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetMobile(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Mobile = assert
 			return nil
 		}
-		return errorf("Unsupported Mobile type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Mobile type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4039,7 +4483,11 @@ func (r *CurrentAuthority) SetMobile(X any, setfunc ...SetFunc) error {
 	return r.SetMobile(v)
 }
 
-func (r CurrentAuthority) MobileGetFunc(getfunc GetFunc) (any, error) {
+/*
+MobileGetFunc processes the R_Mobile field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) MobileGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -4058,13 +4506,13 @@ func (r Sponsor) Mobile() string {
 SetMobile assigns the provided string value to the receiver's
 R_Mobile field.
 */
-func (r *Sponsor) SetMobile(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetMobile(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Mobile = assert
 			return nil
 		}
-		return errorf("Unsupported Mobile type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Mobile type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4075,7 +4523,11 @@ func (r *Sponsor) SetMobile(X any, setfunc ...SetFunc) error {
 	return r.SetMobile(v)
 }
 
-func (r Sponsor) MobileGetFunc(getfunc GetFunc) (any, error) {
+/*
+MobileGetFunc processes the R_Mobile field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) MobileGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -4094,13 +4546,13 @@ func (r FirstAuthority) Street() string {
 SetStreet assigns the provided string value to the receiver's
 R_Street field.
 */
-func (r *FirstAuthority) SetStreet(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetStreet(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Street = assert
 			return nil
 		}
-		return errorf("Unsupported Street type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Street type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4111,7 +4563,11 @@ func (r *FirstAuthority) SetStreet(X any, setfunc ...SetFunc) error {
 	return r.SetStreet(v)
 }
 
-func (r FirstAuthority) StreetGetFunc(getfunc GetFunc) (any, error) {
+/*
+StreetGetFunc processes the R_Street field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) StreetGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -4130,13 +4586,13 @@ func (r CurrentAuthority) Street() string {
 SetStreet assigns the provided string value to the receiver's
 R_Street field.
 */
-func (r *CurrentAuthority) SetStreet(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetStreet(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Street = assert
 			return nil
 		}
-		return errorf("Unsupported Street type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Street type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4147,7 +4603,11 @@ func (r *CurrentAuthority) SetStreet(X any, setfunc ...SetFunc) error {
 	return r.SetStreet(v)
 }
 
-func (r CurrentAuthority) StreetGetFunc(getfunc GetFunc) (any, error) {
+/*
+StreetGetFunc processes the R_Street field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) StreetGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -4166,13 +4626,13 @@ func (r Sponsor) Street() string {
 SetStreet assigns the provided string value to the receiver's
 R_Street field.
 */
-func (r *Sponsor) SetStreet(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetStreet(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Street = assert
 			return nil
 		}
-		return errorf("Unsupported Street type %T provided without SetFunc instance", X)
+		return errorf("Unsupported Street type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4183,7 +4643,11 @@ func (r *Sponsor) SetStreet(X any, setfunc ...SetFunc) error {
 	return r.SetStreet(v)
 }
 
-func (r Sponsor) StreetGetFunc(getfunc GetFunc) (any, error) {
+/*
+StreetGetFunc processes the R_Street field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) StreetGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -4202,7 +4666,7 @@ func (r FirstAuthority) URI() []string {
 SetURI appends one or more string slice value to the receiver's
 R_URI field.
 */
-func (r *FirstAuthority) SetURI(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetURI(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_URI = append(r.R_URI, assert) // append
@@ -4211,7 +4675,7 @@ func (r *FirstAuthority) SetURI(X any, setfunc ...SetFunc) error {
 			r.R_URI = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported URI type %T provided without SetFunc instance", X)
+		return errorf("Unsupported URI type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4222,7 +4686,11 @@ func (r *FirstAuthority) SetURI(X any, setfunc ...SetFunc) error {
 	return r.SetURI(v)
 }
 
-func (r FirstAuthority) URIGetFunc(getfunc GetFunc) (any, error) {
+/*
+URIGetFunc processes the R_URI field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r FirstAuthority) URIGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -4241,7 +4709,7 @@ func (r CurrentAuthority) URI() []string {
 SetURI appends one or more string slice value to the receiver's
 R_URI field.
 */
-func (r *CurrentAuthority) SetURI(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetURI(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_URI = append(r.R_URI, assert) // append
@@ -4250,7 +4718,7 @@ func (r *CurrentAuthority) SetURI(X any, setfunc ...SetFunc) error {
 			r.R_URI = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported URI type %T provided without SetFunc instance", X)
+		return errorf("Unsupported URI type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4261,7 +4729,11 @@ func (r *CurrentAuthority) SetURI(X any, setfunc ...SetFunc) error {
 	return r.SetURI(v)
 }
 
-func (r CurrentAuthority) URIGetFunc(getfunc GetFunc) (any, error) {
+/*
+URIGetFunc processes the R_URI field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r CurrentAuthority) URIGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -4280,7 +4752,7 @@ func (r Sponsor) URI() []string {
 SetURI appends one or more string slice value to the receiver's
 R_URI field.
 */
-func (r *Sponsor) SetURI(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetURI(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_URI = append(r.R_URI, assert) // append
@@ -4289,7 +4761,7 @@ func (r *Sponsor) SetURI(X any, setfunc ...SetFunc) error {
 			r.R_URI = asserts // clobber
 			return nil
 		}
-		return errorf("Unsupported URI type %T provided without SetFunc instance", X)
+		return errorf("Unsupported URI type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4300,7 +4772,11 @@ func (r *Sponsor) SetURI(X any, setfunc ...SetFunc) error {
 	return r.SetURI(v)
 }
 
-func (r Sponsor) URIGetFunc(getfunc GetFunc) (any, error) {
+/*
+URIGetFunc processes the R_URI field through the provided GetOrSetFunc
+instance, returning an interface value alongside an error.
+*/
+func (r Sponsor) URIGetFunc(getfunc GetOrSetFunc) (any, error) {
 	if getfunc == nil {
 		return nil, errorf("Nil %T provided; aborting", getfunc)
 	}
@@ -4320,13 +4796,13 @@ func (r FirstAuthority) StartTime() string {
 SetStartTime appends one or more string slice value to the receiver's
 R_StartTime field.
 */
-func (r *FirstAuthority) SetStartTime(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetStartTime(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_StartTime = assert
 			return nil
 		}
-		return errorf("Unsupported StartTime type %T provided without SetFunc instance", X)
+		return errorf("Unsupported StartTime type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4349,13 +4825,13 @@ func (r CurrentAuthority) StartTime() string {
 SetStartTime appends one or more string slice value to the receiver's
 R_StartTime field.
 */
-func (r *CurrentAuthority) SetStartTime(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetStartTime(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_StartTime = assert
 			return nil
 		}
-		return errorf("Unsupported StartTime type %T provided without SetFunc instance", X)
+		return errorf("Unsupported StartTime type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4378,13 +4854,13 @@ func (r Sponsor) StartTime() string {
 SetStartTime appends one or more string slice value to the receiver's
 R_StartTime field.
 */
-func (r *Sponsor) SetStartTime(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetStartTime(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_StartTime = assert
 			return nil
 		}
-		return errorf("Unsupported StartTime type %T provided without SetFunc instance", X)
+		return errorf("Unsupported StartTime type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4407,13 +4883,13 @@ func (r FirstAuthority) EndTime() string {
 SetRegistrantID assigns the provided string value to the
 receiver's R_Id field.
 */
-func (r *FirstAuthority) SetRegistrantID(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetRegistrantID(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Id = assert
 			return nil
 		}
-		return errorf("Unsupported RegistrantID type %T provided without SetFunc instance", X)
+		return errorf("Unsupported RegistrantID type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4428,13 +4904,13 @@ func (r *FirstAuthority) SetRegistrantID(X any, setfunc ...SetFunc) error {
 SetEndTime appends one or more string slice value to the receiver's
 R_EndTime field.
 */
-func (r *FirstAuthority) SetEndTime(X any, setfunc ...SetFunc) error {
+func (r *FirstAuthority) SetEndTime(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_EndTime = assert
 			return nil
 		}
-		return errorf("Unsupported EndTime type %T provided without SetFunc instance", X)
+		return errorf("Unsupported EndTime type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4458,13 +4934,13 @@ func (r CurrentAuthority) EndTime() string {
 SetRegistrantID assigns the provided string value to the
 receiver's R_Id field.
 */
-func (r *CurrentAuthority) SetRegistrantID(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetRegistrantID(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Id = assert
 			return nil
 		}
-		return errorf("Unsupported RegistrantID type %T provided without SetFunc instance", X)
+		return errorf("Unsupported RegistrantID type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4483,7 +4959,7 @@ See the Relegate function for cases where an instance of *CurrentAuthority needs
 to be "converted" into an instance of *FirstAuthority, which would then make the
 R_EndTime field available.
 */
-func (r *CurrentAuthority) SetEndTime(X any, setfunc ...SetFunc) error {
+func (r *CurrentAuthority) SetEndTime(X any, setfunc ...GetOrSetFunc) error {
 	return errorf("EndTime is not applicable to %T", r)
 }
 
@@ -4499,13 +4975,13 @@ func (r Sponsor) EndTime() string {
 SetRegistrantID assigns the provided string value to the
 receiver's R_Id field.
 */
-func (r *Sponsor) SetRegistrantID(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetRegistrantID(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_Id = assert
 			return nil
 		}
-		return errorf("Unsupported RegistrantID type %T provided without SetFunc instance", X)
+		return errorf("Unsupported RegistrantID type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
@@ -4520,13 +4996,13 @@ func (r *Sponsor) SetRegistrantID(X any, setfunc ...SetFunc) error {
 SetEndTime appends one or more string slice value to the receiver's
 R_EndTime field.
 */
-func (r *Sponsor) SetEndTime(X any, setfunc ...SetFunc) error {
+func (r *Sponsor) SetEndTime(X any, setfunc ...GetOrSetFunc) error {
 	if len(setfunc) == 0 {
 		if assert, ok := X.(string); ok {
 			r.R_EndTime = assert
 			return nil
 		}
-		return errorf("Unsupported EndTime type %T provided without SetFunc instance", X)
+		return errorf("Unsupported EndTime type %T provided without GetOrSetFunc instance", X)
 	}
 
 	v, err := setfunc[0](X, r)
