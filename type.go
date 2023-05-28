@@ -82,8 +82,8 @@ but as so-called "dedicated entries".
 Population of the ServiceEmails and/or ServiceURIs struct fields is
 entirely optional and at the discretion of the directory owner(s).
 
-A generic (and optional) map[string][]string instance, via the Settings struct
-field, is available to enhance or augment client behavior.
+A generic (and optional) map[string][]string instance, via the Settings
+struct field, is available to enhance or augment client behavior.
 
 OID: 1.3.6.1.4.1.56521.101.2.2.3, defined in s. 2.2.3.
 */
@@ -233,8 +233,8 @@ type Registration interface {
 	SetDN(any, ...GetOrSetFunc) error
 
 	// DNGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
-	// struct field into the desired type.
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	DNGetFunc(GetOrSetFunc) (any, error)
 
 	// N returns the numberForm of the registration. This is always
@@ -246,7 +246,7 @@ type Registration interface {
 	SetN(any, ...GetOrSetFunc) error
 
 	// NGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct
+	// instance of GetOrSetFunc processes the appropriate underlying struct
 	// field into the desired type.
 	NGetFunc(GetOrSetFunc) (any, error)
 
@@ -266,7 +266,7 @@ type Registration interface {
 	SetDotNotation(any, ...GetOrSetFunc) error
 
 	// DotNotationGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
+	// non-nil instance of GetOrSetFunc processes the appropriate underlying
 	// struct field into the desired type.
 	DotNotationGetFunc(GetOrSetFunc) (any, error)
 
@@ -280,7 +280,7 @@ type Registration interface {
 	SetASN1Notation(any, ...GetOrSetFunc) error
 
 	// ASN1NotationGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
+	// non-nil instance of GetOrSetFunc processes the appropriate underlying
 	// struct field into the desired type.
 	ASN1NotationGetFunc(GetOrSetFunc) (any, error)
 
@@ -293,7 +293,7 @@ type Registration interface {
 	SetIdentifier(any, ...GetOrSetFunc) error
 
 	// IdentifierGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
+	// non-nil instance of GetOrSetFunc processes the appropriate underlying
 	// struct field into the desired type.
 	IdentifierGetFunc(GetOrSetFunc) (any, error)
 
@@ -310,7 +310,7 @@ type Registration interface {
 	SetNameAndNumberForm(any, ...GetOrSetFunc) error
 
 	// NameAndNumberFormGetFunc returns an interface value alongside an error.
-	// A non-nil instance of GetFunc processes the appropriate underlying
+	// A non-nil instance of GetOrSetFunc processes the appropriate underlying
 	// struct field into the desired type.
 	NameAndNumberFormGetFunc(GetOrSetFunc) (any, error)
 
@@ -324,7 +324,7 @@ type Registration interface {
 	SetLeftArc(any, ...GetOrSetFunc) error
 
 	// LeftArcGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
+	// non-nil instance of GetOrSetFunc processes the appropriate underlying
 	// struct field into the desired type.
 	LeftArcGetFunc(GetOrSetFunc) (any, error)
 
@@ -338,7 +338,7 @@ type Registration interface {
 	SetRightArc(any, ...GetOrSetFunc) error
 
 	// RightArcGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
+	// non-nil instance of GetOrSetFunc processes the appropriate underlying
 	// struct field into the desired type.
 	RightArcGetFunc(GetOrSetFunc) (any, error)
 
@@ -353,7 +353,7 @@ type Registration interface {
 	SetFirstArc(any, ...GetOrSetFunc) error
 
 	// FirstArcGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
+	// non-nil instance of GetOrSetFunc processes the appropriate underlying
 	// struct field into the desired type.
 	FirstArcGetFunc(GetOrSetFunc) (any, error)
 
@@ -368,7 +368,7 @@ type Registration interface {
 	SetFinalArc(any, ...GetOrSetFunc) error
 
 	// FinalArcGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
+	// non-nil instance of GetOrSetFunc processes the appropriate underlying
 	// struct field into the desired type.
 	FinalArcGetFunc(GetOrSetFunc) (any, error)
 
@@ -382,7 +382,7 @@ type Registration interface {
 	SetTopArc(any, ...GetOrSetFunc) error
 
 	// TopArcGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
+	// non-nil instance of GetOrSetFunc processes the appropriate underlying
 	// struct field into the desired type.
 	TopArcGetFunc(GetOrSetFunc) (any, error)
 	// SupArc returns the immediate parent registration DN in relation to
@@ -396,7 +396,7 @@ type Registration interface {
 	SetSupArc(any, ...GetOrSetFunc) error
 
 	// SupArcGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
+	// non-nil instance of GetOrSetFunc processes the appropriate underlying
 	// struct field into the desired type.
 	SupArcGetFunc(GetOrSetFunc) (any, error)
 
@@ -415,7 +415,7 @@ type Registration interface {
 	//
 	// A value that is greater than both zero (0) and N should be
 	// interpreted as a proper range of definite length (e.g.:
-	// 55 (n) through 1500 (registrationRange)).
+	// 55 (n, range start) through 1500 (registrationRange, range end)).
 	//
 	// Note this only applies to SubArc (x660SubArc) registrations,
 	// as root registrations never have range allocations.
@@ -428,8 +428,8 @@ type Registration interface {
 	SetRange(any, ...GetOrSetFunc) error
 
 	// RangeGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
-	// struct field into the desired type.
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	RangeGetFunc(GetOrSetFunc) (any, error)
 
 	// LeafNode returns a boolean value that defines whether the
@@ -446,8 +446,8 @@ type Registration interface {
 	SetLeafNode(any, ...GetOrSetFunc) error
 
 	// LeafNodeGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
-	// struct field into the desired type.
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	LeafNodeGetFunc(GetOrSetFunc) (any, error)
 
 	// Frozen returns a boolean value that defines whether the
@@ -464,8 +464,8 @@ type Registration interface {
 	SetFrozen(any, ...GetOrSetFunc) error
 
 	// FrozenGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
-	// struct field into the desired type.
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	FrozenGetFunc(GetOrSetFunc) (any, error)
 
 	// Status returns zero or more string "status" values, as
@@ -477,8 +477,8 @@ type Registration interface {
 	SetStatus(any, ...GetOrSetFunc) error
 
 	// StatusGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
-	// struct field into the desired type.
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	StatusGetFunc(GetOrSetFunc) (any, error)
 
 	// Description returns the description assigned to the
@@ -490,8 +490,8 @@ type Registration interface {
 	SetDescription(any, ...GetOrSetFunc) error
 
 	// DescriptionGetFunc returns an interface value alongside an error.
-	// A non-nil instance of GetFunc processes the appropriate underlying
-	// struct field into the desired type.
+	// A non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	DescriptionGetFunc(GetOrSetFunc) (any, error)
 
 	// SubArc returns zero or more string registration
@@ -511,8 +511,8 @@ type Registration interface {
 	SetSubArc(any, ...GetOrSetFunc) error
 
 	// SubArcGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
-	// struct field into the desired type.
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	SubArcGetFunc(GetOrSetFunc) (any, error)
 
 	// LongArc returns slices of longArc values if assigned to the
@@ -527,8 +527,8 @@ type Registration interface {
 	SetLongArc(any, ...GetOrSetFunc) error
 
 	// LongArcGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
-	// struct field into the desired type.
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	LongArcGetFunc(GetOrSetFunc) (any, error)
 
 	// Create time returns the registrationCreated Generalized Time value
@@ -557,8 +557,8 @@ type Registration interface {
 	SetDiscloseTo(any, ...GetOrSetFunc) error
 
 	// DiscloseToGetFunc returns an interface value alongside an
-	// error. A non-nil instance of GetFunc processes the appropriate
-	// underlying struct field into the desired type.
+	// error. A non-nil instance of GetOrSetFunc processes the
+	// appropriate underlying struct field into the desired type.
 	DiscloseToGetFunc(GetOrSetFunc) (any, error)
 
 	// StdNameForm returns zero or more slices of standardized
@@ -570,8 +570,8 @@ type Registration interface {
 	SetStdNameForm(any, ...GetOrSetFunc) error
 
 	// StdNameFormGetFunc returns an interface value alongside an
-	// error. A non-nil instance of GetFunc processes the appropriate
-	// underlying struct field into the desired type.
+	// error. A non-nil instance of GetOrSetFunc processes the
+	// appropriate underlying struct field into the desired type.
 	StdNameFormGetFunc(GetOrSetFunc) (any, error)
 
 	// IRI returns zero or more internationalized resource
@@ -585,8 +585,8 @@ type Registration interface {
 	SetIRI(any, ...GetOrSetFunc) error
 
 	// IRIGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying
-	// struct field into the desired type.
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	IRIGetFunc(GetOrSetFunc) (any, error)
 
 	// UnicodeValue returns zero or more unicodeValue slice
@@ -600,8 +600,8 @@ type Registration interface {
 	SetUnicodeValue(any, ...GetOrSetFunc) error
 
 	// UnicodeValueGetFunc returns an interface value alongside an error.
-	// A non-nil instance of GetFunc processes the appropriate underlying
-	// struct field into the desired type.
+	// A non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	UnicodeValueGetFunc(GetOrSetFunc) (any, error)
 
 	// AdditionalIdentifier returns zero or more so-called
@@ -615,8 +615,8 @@ type Registration interface {
 	SetAdditionalIdentifier(any, ...GetOrSetFunc) error
 
 	// AdditionalIdentifierGetFunc returns an interface value alongside an
-	// error. A non-nil instance of GetFunc processes the appropriate underlying
-	// struct field into the desired type.
+	// error. A non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	AdditionalIdentifierGetFunc(GetOrSetFunc) (any, error)
 
 	// Info returns zero or more string values, each representing
@@ -629,8 +629,8 @@ type Registration interface {
 	SetInfo(any, ...GetOrSetFunc) error
 
 	// InfoGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct field
-	// into the desired type.
+	// instance of GetOrSetFunc processes the appropriate underlying struct
+	// field into the desired type.
 	InfoGetFunc(GetOrSetFunc) (any, error)
 
 	// URI returns zero or more uniform resource identifier
@@ -644,8 +644,8 @@ type Registration interface {
 	SetURI(any, ...GetOrSetFunc) error
 
 	// URIGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct field
-	// into the desired type.
+	// instance of GetOrSetFunc processes the appropriate underlying struct
+	// field into the desired type.
 	URIGetFunc(GetOrSetFunc) (any, error)
 
 	// FirstAuthority returns zero or more LDAP string distinguished
@@ -666,9 +666,9 @@ type Registration interface {
 	// name values to the receiver's R_Firsts field.
 	SetFirstAuthority(any, ...GetOrSetFunc) error
 
-	// FirstAuthorityGetFunc returns an interface value alongside an error.
-	// A non-nil instance of GetFunc processes the appropriate underlying struct
-	// field into the desired type.
+	// FirstAuthorityGetFunc returns an interface value alongside an
+	// error. A non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	FirstAuthorityGetFunc(GetOrSetFunc) (any, error)
 
 	// SetCombinedFirstAuthority assigns a non-nil instance of
@@ -694,9 +694,9 @@ type Registration interface {
 	// name values to the receiver's R_Currents field.
 	SetCurrentAuthority(any, ...GetOrSetFunc) error
 
-	// CurrentAuthorityGetFunc returns an interface value alongside an error.
-	// A non-nil instance of GetFunc processes the appropriate underlying struct
-	// field into the desired type.
+	// CurrentAuthorityGetFunc returns an interface value alongside
+	// an error. A non-nil instance of GetOrSetFunc processes the
+	// appropriate underlying struct field into the desired type.
 	CurrentAuthorityGetFunc(GetOrSetFunc) (any, error)
 
 	// SetCombinedCurrentAuthority assigns a non-nil instance of
@@ -725,9 +725,9 @@ type Registration interface {
 	// *dcxl.SubArc.
 	SetSponsor(any, ...GetOrSetFunc) error
 
-	// SponsorGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct field
-	// into the desired type.
+	// SponsorGetFunc returns an interface value alongside an error.
+	// A non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	SponsorGetFunc(GetOrSetFunc) (any, error)
 
 	// SetCombinedSponsor assigns a non-nil instance of *Sponsor
@@ -784,9 +784,9 @@ type Registrant interface {
 	// receiver's R_DN field.
 	SetDN(any, ...GetOrSetFunc) error
 
-	// DNGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct field
-	// into the desired type.
+	// DNGetFunc returns an interface value alongside an error. A
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	DNGetFunc(GetOrSetFunc) (any, error)
 
 	// RegistrantID returns the registrantID assigned to the registrant
@@ -797,9 +797,9 @@ type Registrant interface {
 	// the receiver's R_Id field
 	SetRegistrantID(any, ...GetOrSetFunc) error
 
-	// RegistrantIDGetFunc returns an interface value alongside an error. A
-	// non-nil instance of GetFunc processes the appropriate underlying struct
-	// field into the desired type.
+	// RegistrantIDGetFunc returns an interface value alongside an
+	// error. A non-nil instance of GetOrSetFunc processes the
+	// appropriate underlying struct field into the desired type.
 	RegistrantIDGetFunc(GetOrSetFunc) (any, error)
 
 	// CN returns the common name assigned to the registrant
@@ -809,9 +809,9 @@ type Registrant interface {
 	// SetCN assigns the string value to the receiver's R_CN field.
 	SetCN(any, ...GetOrSetFunc) error
 
-	// CNGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct field
-	// into the desired type.
+	// CNGetFunc returns an interface value alongside an error. A
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	CNGetFunc(GetOrSetFunc) (any, error)
 
 	// L returns the l (locality) assigned to the registrant
@@ -821,9 +821,9 @@ type Registrant interface {
 	// SetL assigns the string value to the receiver's R_L field.
 	SetL(any, ...GetOrSetFunc) error
 
-	// LGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct field
-	// into the desired type.
+	// LGetFunc returns an interface value alongside an error. A
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	LGetFunc(GetOrSetFunc) (any, error)
 
 	// O returns the organization name assigned to the registrant
@@ -833,9 +833,9 @@ type Registrant interface {
 	// SetO assigns the string value to the receiver's R_O field.
 	SetO(any, ...GetOrSetFunc) error
 
-	// OGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct field
-	// into the desired type.
+	// OGetFunc returns an interface value alongside an error. A
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	OGetFunc(GetOrSetFunc) (any, error)
 
 	// C returns the [2 character] country code assigned to the
@@ -845,9 +845,9 @@ type Registrant interface {
 	// SetC assigns the string value to the receiver's R_C field.
 	SetC(any, ...GetOrSetFunc) error
 
-	// CGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct field
-	// into the desired type.
+	// CGetFunc returns an interface value alongside an error. A
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	CGetFunc(GetOrSetFunc) (any, error)
 
 	// CO returns the full country name assigned to the registrant
@@ -857,9 +857,9 @@ type Registrant interface {
 	// SetCO assigns the string value to the receiver's R_CO field.
 	SetCO(any, ...GetOrSetFunc) error
 
-	// COGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct field
-	// into the desired type.
+	// COGetFunc returns an interface value alongside an error. A
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	COGetFunc(GetOrSetFunc) (any, error)
 
 	// ST returns the full state or province name assigned to the
@@ -869,9 +869,9 @@ type Registrant interface {
 	// SetST assigns the string value to the receiver's R_ST field.
 	SetST(any, ...GetOrSetFunc) error
 
-	// STGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct field
-	// into the desired type.
+	// STGetFunc returns an interface value alongside an error. A
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	STGetFunc(GetOrSetFunc) (any, error)
 
 	// Tel returns the telephone number assigned to the registrant
@@ -881,9 +881,9 @@ type Registrant interface {
 	// SetTel assigns the string value to the receiver's R_Tel field.
 	SetTel(any, ...GetOrSetFunc) error
 
-	// TelGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct field
-	// into the desired type.
+	// TelGetFunc returns an interface value alongside an error. A
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	TelGetFunc(GetOrSetFunc) (any, error)
 
 	// Fax returns the facsimile telephone number assigned to the
@@ -893,9 +893,9 @@ type Registrant interface {
 	// SetFax assigns the string value to the receiver's R_Fax field.
 	SetFax(any, ...GetOrSetFunc) error
 
-	// FaxGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct field
-	// into the desired type.
+	// FaxGetFunc returns an interface value alongside an error. A
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	FaxGetFunc(GetOrSetFunc) (any, error)
 
 	// Title returns the acknowledged title of the individual or
@@ -903,12 +903,13 @@ type Registrant interface {
 	// zero string if unset.
 	Title() string
 
-	// SetTitle assigns the string value to the receiver's R_Title field.
+	// SetTitle assigns the string value to the receiver's R_Title
+	// field.
 	SetTitle(any, ...GetOrSetFunc) error
 
-	// TitleGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct field
-	// into the desired type.
+	// TitleGetFunc returns an interface value alongside an error.
+	// A non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	TitleGetFunc(GetOrSetFunc) (any, error)
 
 	// Email returns the email address of the individual or
@@ -916,48 +917,52 @@ type Registrant interface {
 	// zero string if unset.
 	Email() string
 
-	// SetEmail assigns the string value to the receiver's R_Email field.
+	// SetEmail assigns the string value to the receiver's R_Email
+	// field.
 	SetEmail(any, ...GetOrSetFunc) error
 
-	// EmailGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct field
-	// into the desired type.
+	// EmailGetFunc returns an interface value alongside an error.
+	// A non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	EmailGetFunc(GetOrSetFunc) (any, error)
 
 	// POBox returns the box office box number assigned to the
 	// registrant instance, or a zero string if unset.
 	POBox() string
 
-	// SetPOBox assigns the string value to the receiver's R_POBox field.
+	// SetPOBox assigns the string value to the receiver's R_POBox
+	// field.
 	SetPOBox(any, ...GetOrSetFunc) error
 
-	// POBoxGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct field
-	// into the desired type.
+	// POBoxGetFunc returns an interface value alongside an error. A
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	POBoxGetFunc(GetOrSetFunc) (any, error)
 
 	// PostalAddress returns the postal address number assigned
 	// to the registrant instance, or a zero string if unset.
 	PostalAddress() string
 
-	// SetPostalAddress assigns the string value to the receiver's R_PAddr field.
+	// SetPostalAddress assigns the string value to the receiver's
+	// R_PAddr field.
 	SetPostalAddress(any, ...GetOrSetFunc) error
 
-	// PostalAddressGetFunc returns an interface value alongside an error.
-	// A non-nil instance of GetFunc processes the appropriate underlying
-	// struct field into the desired type.
+	// PostalAddressGetFunc returns an interface value alongside an
+	// error. A non-nil instance of GetOrSetFunc processes the
+	// appropriate underlying struct field into the desired type.
 	PostalAddressGetFunc(GetOrSetFunc) (any, error)
 
 	// PostalCode returns the postal code assigned to the
 	// registrant instance, or a zero string if unset.
 	PostalCode() string
 
-	// SetPostalCode assigns the string value to the receiver's R_PCode field.
+	// SetPostalCode assigns the string value to the receiver's
+	// R_PCode field.
 	SetPostalCode(any, ...GetOrSetFunc) error
 
 	// PostalCodeGetFunc returns an interface value alongside an error.
-	// A non-nil instance of GetFunc processes the appropriate underlying
-	// struct field into the desired type.
+	// A non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	PostalCodeGetFunc(GetOrSetFunc) (any, error)
 
 	// Mobile returns the mobile telephone number assigned to the
@@ -967,9 +972,9 @@ type Registrant interface {
 	// SetMobile assigns the string value to the receiver's R_Mobile field.
 	SetMobile(any, ...GetOrSetFunc) error
 
-	// MobileGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct
-	// field into the desired type.
+	// MobileGetFunc returns an interface value alongside an error. A
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	MobileGetFunc(GetOrSetFunc) (any, error)
 
 	// Street returns the street address assigned to the registrant
@@ -979,9 +984,9 @@ type Registrant interface {
 	// SetStreet assigns the string value to the receiver's R_Street field.
 	SetStreet(any, ...GetOrSetFunc) error
 
-	// StreetGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct
-	// field into the desired type.
+	// StreetGetFunc returns an interface value alongside an error. A
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	StreetGetFunc(GetOrSetFunc) (any, error)
 
 	// URI returns zero or more uniform resource identifier values
@@ -991,9 +996,9 @@ type Registrant interface {
 	// SetURI assigns the string value to the receiver's R_URI field.
 	SetURI(any, ...GetOrSetFunc) error
 
-	// URIGetFunc returns an interface value alongside an error. A non-nil
-	// instance of GetFunc processes the appropriate underlying struct
-	// field into the desired type.
+	// URIGetFunc returns an interface value alongside an error. A
+	// non-nil instance of GetOrSetFunc processes the appropriate
+	// underlying struct field into the desired type.
 	URIGetFunc(GetOrSetFunc) (any, error)
 
 	// StartTime returns a string generalizedTime value
