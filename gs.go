@@ -506,14 +506,14 @@ func Relegate(X, R any) (F any, err error) {
 
 	// Reflect the type and value of the source
 	// *CurrentAuthority instance (R).
-        v := valOf(R).Elem()
-        t := typeOf(R).Elem()
+	v := valOf(R).Elem()
+	t := typeOf(R).Elem()
 
 	// Prepare the new destination *FirstAuthority
 	// instance in a similar manner.
 	var prev *FirstAuthority
-        v2 := valOf(prev).Elem()
-        t2 := typeOf(prev).Elem()
+	v2 := valOf(prev).Elem()
+	t2 := typeOf(prev).Elem()
 
 	// Iterate through each struct field,
 	// taking care to match the source
@@ -522,26 +522,25 @@ func Relegate(X, R any) (F any, err error) {
 	// Two loops are in effect here. The
 	// outer loop is the source, and the
 	// inner loop is the destination.
-        for i := 0; i < v.NumField(); i++ {
-                f1 := t.Field(i).Name
-                for j := 0; j < v2.NumField(); j++ {
-                        f2 := t2.Field(j).Name
-                        if f1 == f2 {
-                                v2.Field(j).Set(v.Field(i))
+	for i := 0; i < v.NumField(); i++ {
+		f1 := t.Field(i).Name
+		for j := 0; j < v2.NumField(); j++ {
+			f2 := t2.Field(j).Name
+			if f1 == f2 {
+				v2.Field(j).Set(v.Field(i))
 				// When done writing, the inner
 				// (dest) loop can be closed.
-                                break
-                        }
-                }
-        }
+				break
+			}
+		}
+	}
 
 	// Stamp the time before we finish.
 	v2.FieldByName(`R_EndTime`).Set(valOf(endtime))
 
 	// Wrap the FirstAuthority as an interface,
 	// and ship it out.
-        F = v2.Interface().(*FirstAuthority)
+	F = v2.Interface().(*FirstAuthority)
 
-        return
+	return
 }
-
