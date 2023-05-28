@@ -1,7 +1,7 @@
 package dcxl
 
 /*
-sgf.go contains stock GetOrSetFunc-qualified functions for use
+gs.go contains stock GetOrSetFunc-qualified functions for use
 during composition or interrogation of Registration and/or Registrant
 type instances, as well as to offer practical examples regarding the
 creation of such CUSTOM function instances by the user.
