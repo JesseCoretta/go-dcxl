@@ -92,7 +92,7 @@ func ExampleSubArc_Kind() {
 	// Output: STRUCTURAL
 }
 
-func ExampleSubArc_SetDotNotation_withSetFunc3D() {
+func ExampleSubArc_SetDotNotation_withGetOrSetFunc3D() {
 	var X *SubArc = new(SubArc)
 	//var X Registration = new(SubArc)
 	X.SetDN(`n=11,n=1,n=2,n=101,n=56521,n=1,n=4,n=1,n=6,n=3,n=1,ou=Registrations,o=rA`)
@@ -110,7 +110,7 @@ func ExampleSubArc_SetDotNotation_withSetFunc3D() {
 	// Output: 1.3.6.1.4.1.56521.101.2.1.11
 }
 
-func ExampleSubArc_SetDotNotation_withSetFunc2D() {
+func ExampleSubArc_SetDotNotation_withGetOrSetFunc2D() {
 	var X *SubArc = new(SubArc)
 	//var X Registration = new(SubArc)
 	X.SetDN(`dotNotation=1.3.6.1.4.1.56521.101.2.1.11,ou=Registrations,o=rA`)
@@ -128,7 +128,7 @@ func ExampleSubArc_SetDotNotation_withSetFunc2D() {
 	// Output: 1.3.6.1.4.1.56521.101.2.1.11
 }
 
-func ExampleSubArc_SetDN_withSetFunc3D() {
+func ExampleSubArc_SetDN_withGetOrSetFunc3D() {
 	var X *SubArc = new(SubArc)
 	X.SetDotNotation(`1.3.6.1.4.1.56521.101.2.1.11`)
 	X.SetDUAConfig(&DUAConfig{
@@ -145,7 +145,7 @@ func ExampleSubArc_SetDN_withSetFunc3D() {
 	// Output: n=11,n=1,n=2,n=101,n=56521,n=1,n=4,n=1,n=6,n=3,n=1,ou=Registrations,o=rA
 }
 
-func ExampleSubArc_SetDN_withSetFunc2D() {
+func ExampleSubArc_SetDN_withGetOrSetFunc2D() {
 	var X *SubArc = new(SubArc)
 	X.SetDotNotation(`1.3.6.1.4.1.56521.101.2.1.11`)
 	X.SetDUAConfig(&DUAConfig{
@@ -162,15 +162,15 @@ func ExampleSubArc_SetDN_withSetFunc2D() {
 	// Output: dotNotation=1.3.6.1.4.1.56521.101.2.1.11,ou=Registrations,o=rA
 }
 
-func ExampleRootArc_ModifyTimeGetFunc_generalizedTimeToTime() {
+func ExampleRootArc_ModifyTimeGetFunc_withGetOrSetFuncgeneralizedTimeToTime() {
 	var X *RootArc = new(RootArc)
 
 	// give our instance a string val
 	X.SetModifyTime(`20080114214613Z`)
 
 	// Hand the ModifyTimeGetFunc method the
-	// desired GetFunc function instance to
-	// be executed.
+	// desired GetOrSetFunc function instance
+	// to be executed.
 	t, err := X.ModifyTimeGetFunc(GeneralizedTimeToTime)
 	if err != nil {
 		fmt.Println(err)

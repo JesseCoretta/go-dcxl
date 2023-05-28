@@ -48,7 +48,7 @@ type GetOrSetFunc func(any, any) (any, error)
 DUAConfig contains important information necessary for effective DUA
 configuration. This information could be set manually by the user, or
 marshaled via the target DSA's Root DSE entry. For more information, see
-draft-coretta-x660-ldap [v08] s. 3.5.1 (manual) and s. 3.5.2 (auto).
+draft-coretta-x660-ldap s. 3.5.1 (manual) and s. 3.5.2 (auto).
 
 See also go-ldap/ldap's Entry.Unmarshal method for auto-configuration of
 (pointer!) instances of this type.
@@ -67,7 +67,7 @@ on the remote DSA.
 If only the Registrants struct field is populated with a valid DN, this
 indicates that OID registration information is neither stored nor managed
 on the remote DSA (which is atypical and does not technically reflect the
-intended use and procedures of draft-coretta-x660-ldap [v08]).
+intended use and procedures of draft-coretta-x660-ldap).
 
 If the Registrations and Registrants struct fields are both populated with an
 identical (and valid) DN, this indicates that both OID registration entries

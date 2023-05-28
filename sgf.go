@@ -1,7 +1,7 @@
 package dcxl
 
 /*
-sgf.go contains stock SetFunc/GetFunc-qualified functions for use
+sgf.go contains stock GetOrSetFunc-qualified functions for use
 during composition or interrogation of Registration and/or Registrant
 type instances, as well as to offer practical examples regarding the
 creation of such CUSTOM function instances by the user.
@@ -13,12 +13,12 @@ import "time"
 GeneralizedTimeToTime converts one or more string-based generalizedTime
 values into a UTC-aligned time.Time instances, which are then added as
 slices to an instance of []time.Time (as an interface type), and then
-returned alongside an error. This function qualifies for the SetFunc
-and GetFunc type signatures.
+returned alongside an error. This function qualifies for the GetOrSetFunc
+type signature.
 
 For more information about functions such as this one, as well as
 information on writing your own speciality functions/methods, see
-the documentation for the SetFunc and GetFunc closure types.
+the documentation for the GetOrSetFunc closure type.
 */
 func GeneralizedTimeToTime(X, R any) (T any, err error) {
 	switch tv := X.(type) {
@@ -51,11 +51,11 @@ func GeneralizedTimeToTime(X, R any) (T any, err error) {
 /*
 TimeToGeneralizedTime converts an instance of time.Time into a string
 value instance of generalizedTime, which is returned alonside an error.
-This function qualifies for the SetFunc and GetFunc type signatures.
+This function qualifies for the GetOrSetFunc type signature.
 
 For more information about functions such as this one, as well as
 information on writing your own speciality functions/methods, see
-the documentation for the SetFunc and GetFunc closure types.
+the documentation for the GetOrSetFunc closure type.
 */
 func TimeToGeneralizedTime(X, R any) (G any, err error) {
 	switch tv := X.(type) {
@@ -88,18 +88,18 @@ func TimeToGeneralizedTime(X, R any) (G any, err error) {
 /*
 DotNotToDN2D returns a string-based LDAP distinguished name value
 (dn) based upon the contents of the input ASN.1 dotNotation value
-(X) alongside an error. This function qualifies for the SetFunc
-and GetFunc type signature.
+(X) alongside an error. This function qualifies for the GetOrSetFunc
+type signature.
 
 This conforms to the two dimensional DN syntax, as described in
-draft-coretta-x660-ldap-08, section 3.2. This function will output
+draft-coretta-x660-ldap, section 3.2. This function will output
 a distinguished name value that uses the dotNotation for the RDN AT.
 Individual numberForms present within the dotNotation are verified
 as non-negative numbers, but are not modified.
 
 For more information about functions such as this one, as well as
 information on writing your own speciality functions/methods, see
-the documentation for the SetFunc and GetFunc closure types.
+the documentation for the GetOrSetFunc closure type.
 */
 func DotNotToDN2D(X, R any) (dn any, err error) {
 	r, ok := R.(Registration)
@@ -115,7 +115,7 @@ func DotNotToDN2D(X, R any) (dn any, err error) {
 	}
 
 	// We want at least one Registration Base
-	// and our model MUST be 3D. Return error
+	// and our model MUST be 2D. Return error
 	// value otherwise.
 	if len(duaConf.Registrations) == 0 || duaConf.DirectoryModel != TwoDimensional {
 		err = errorf("Invalid %T configuration", r)
@@ -133,7 +133,7 @@ func DotNotToDN2D(X, R any) (dn any, err error) {
 	default:
 		// This stock function only allows string-based OIDs as
 		// input. If you need something more specialized, such
-		// as asn1.ObjectIdentifier, write your own SetFunc :)
+		// as asn1.ObjectIdentifier, write your own GetOrSetFunc
 		err = errorf("Unsupported OID type (%T)", tv)
 		return
 	}
@@ -157,15 +157,15 @@ func DotNotToDN2D(X, R any) (dn any, err error) {
 DNtoDotNot2D returns a dotNotation-based ASN.1 Object Identifier
 (id) based upon the contents of the input string distinguished
 name value (X) alongside an error. This function qualifies for
-the SetFunc type signature.
+the GetOrSetFunc type signature.
 
 This conforms to the two dimensional DN syntax, as described in
-draft-coretta-x660-ldap-08, section 3.2. This function expects
+draft-coretta-x660-ldap, section 3.2. This function expects
 the use of dotNotation in the RDN.
 
 For more information about functions such as this one, as well as
 information on writing your own speciality functions/methods, see
-the documentation for the SetFunc closure type.
+the documentation for the GetOrSetFunc closure type.
 */
 func DNToDotNot2D(X, R any) (id any, err error) {
 
@@ -176,7 +176,7 @@ func DNToDotNot2D(X, R any) (id any, err error) {
 	default:
 		// This stock function only allows string-based DNs as
 		// input. If you need something more specialized, such
-		// as *ldap.DN, write your own SetFunc :)
+		// as *ldap.DN, write your own GetOrSetFunc
 		err = errorf("Unsupported DN type (%T)", tv)
 		return
 	}
@@ -211,17 +211,17 @@ func DNToDotNot2D(X, R any) (id any, err error) {
 /*
 DotNotToDN3D returns a string-based LDAP distinguished name value
 (dn) based upon the contents of the input ASN.1 dotNotation value
-(X) alongside an error. This function qualifies for the SetFunc
+(X) alongside an error. This function qualifies for the GetOrSetFunc
 type signature.
 
 This conforms to the three dimensional DN syntax, as described in
-draft-coretta-x660-ldap-08, section 3.3. This function will output
+draft-coretta-x660-ldap, section 3.3. This function will output
 relative distinguished name values, each of whom describe specific
 numberForm values, using the preferred AT descriptor 'n'.
 
 For more information about functions such as this one, as well as
 information on writing your own speciality functions/methods, see
-the documentation for the SetFunc closure type.
+the documentation for the GetOrSetFunc closure type.
 */
 func DotNotToDN3D(X, R any) (dn any, err error) {
 	r, ok := R.(Registration)
@@ -253,7 +253,7 @@ func DotNotToDN3D(X, R any) (dn any, err error) {
 	default:
 		// This stock function only allows string-based DNs as
 		// input. If you need something more specialized, such
-		// as *ldap.DN, write your own SetFunc :)
+		// as *ldap.DN, write your own GetOrSetFunc
 		err = errorf("Unsupported OID type (%T)", tv)
 		return
 	}
@@ -282,16 +282,16 @@ func DotNotToDN3D(X, R any) (dn any, err error) {
 DNtoDotNot3D returns a dotNotation-based ASN.1 Object Identifier
 (id) based upon the contents of the input string distinguished
 name value (X) alongside an error. This function qualifies for
-the SetFunc type signature.
+the GetOrSetFunc type signature.
 
 This conforms to the three dimensional DN syntax, as described in
-draft-coretta-x660-ldap-08, section 3.3. This function offers
+draft-coretta-x660-ldap, section 3.3. This function offers
 positive support for the RDN AT descriptor 'n' as well as its
 more "distinguished" descriptor alias 'numberForm'.
 
 For more information about functions such as this one, as well as
 information on writing your own speciality functions/methods, see
-the documentation for the SetFunc closure type.
+the documentation for the GetOrSetFunc closure type.
 */
 func DNToDotNot3D(X, R any) (id any, err error) {
 
@@ -354,7 +354,7 @@ func DNToDotNot3D(X, R any) (id any, err error) {
 	default:
 		// This stock function only allows string-based DNs as
 		// input. If you need something more specialized, such
-		// as *ldap.DN, write your own SetFunc :)
+		// as *ldap.DN, write your own GetOrSetFunc
 		err = errorf("Unsupported DN type (%T)", tv)
 		return
 	}
