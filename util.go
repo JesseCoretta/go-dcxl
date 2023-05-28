@@ -55,13 +55,9 @@ var (
 )
 
 /*
-TimeToGenTime converts a time.Time value into a generalizedTime string
+timeToGenTime converts a time.Time value into a generalizedTime string
 value, which is returned alongside a success-indicative boolean value.
 */
-func TimeToGenTime(gt time.Time) (v string, ok bool) {
-	return timeToGenTime(gt)
-}
-
 func timeToGenTime(gt time.Time) (v string, ok bool) {
 	// Don't waste time on
 	// null time values
@@ -94,16 +90,12 @@ func timeToGenTime(gt time.Time) (v string, ok bool) {
 }
 
 /*
-GenTimeToTime converts a generalizedTime value into an instance of
+genTimeToTime converts a generalizedTime value into an instance of
 time.Time, which is returned alongside a success-indicative boolean value.
 
 NOTE: this function will understand both UTC time AND UTC-offset time for
 input, but will enforce UTC time output.
 */
-func GenTimeToTime(gt string) (v time.Time, ok bool) {
-	return genTimeToTime(gt)
-}
-
 func genTimeToTime(gt string) (v time.Time, ok bool) {
 	// The absolute minimum valid length
 	// of generalized time should be

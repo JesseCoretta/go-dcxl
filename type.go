@@ -28,19 +28,30 @@ input argument will be the (non-nil) POINTER receiver instance that
 contains the target field(s) (i.e.: the object to which something is
 being writing).
 
+A Set<*> function that interacts with a struct field of type []string
+can allow append operations (with an individual input value), as well
+as so-called "clobber" operations (with a slice ([]) input value) in
+which any values already present are overwritten (clobbered).  If an
+append operation is needed for multiple values, and clobbering is NOT
+desired, the submission must be done in an iterative (looped) manner.
+You have been warned.
+
 In the context of Set<*> return values, the first return value will be
-the (processed) value to be written. The second return value, error,
+the (processed) value to be written. The second return value, an error,
 will contain error information in the event of any encountered issues.
 
 In the context of <*>GetFunc executions, the first input argument will
 be the struct field value relevant to the executing method. This will
 produce the value being "gotten" within functions/methods that conform
 to the signature of this type. The second input argument will be the
-Registration or Registrant instance being interrogated.
+non-nil Registration or Registrant instance being interrogated, which
+may or may not be a POINTER instance.
 
 In the context of <*>GetFunc return values, the first return value will
-be the (processed) value to be written. The second return value, error,
-will contain error information in the event of any encountered issues.
+be the (processed) value being read. It will manifest as an instance of
+'any', and will require manual type assertion. The second return value,
+an error, will contain error information in the event of any encountered
+issues.
 */
 type GetOrSetFunc func(any, any) (any, error)
 
@@ -570,7 +581,7 @@ type Registration interface {
 	SetStdNameForm(any, ...GetOrSetFunc) error
 
 	// StdNameFormGetFunc returns an interface value alongside an
-	// error. A non-nil instance of GetOrSetFunc processes the
+	// an error. A non-nil instance of GetOrSetFunc processes the
 	// appropriate underlying struct field into the desired type.
 	StdNameFormGetFunc(GetOrSetFunc) (any, error)
 
@@ -599,9 +610,9 @@ type Registration interface {
 	// to the receiver's R_UVal field.
 	SetUnicodeValue(any, ...GetOrSetFunc) error
 
-	// UnicodeValueGetFunc returns an interface value alongside an error.
-	// A non-nil instance of GetOrSetFunc processes the appropriate
-	// underlying struct field into the desired type.
+	// UnicodeValueGetFunc returns an interface value alongside
+	// an error. A non-nil instance of GetOrSetFunc processes the
+	// appropriate underlying struct field into the desired type.
 	UnicodeValueGetFunc(GetOrSetFunc) (any, error)
 
 	// AdditionalIdentifier returns zero or more so-called
@@ -614,14 +625,15 @@ type Registration interface {
 	// values to the receiver's R_AddlId field.
 	SetAdditionalIdentifier(any, ...GetOrSetFunc) error
 
-	// AdditionalIdentifierGetFunc returns an interface value alongside an
-	// error. A non-nil instance of GetOrSetFunc processes the appropriate
-	// underlying struct field into the desired type.
+	// AdditionalIdentifierGetFunc returns an interface value
+	// alongside an error. A non-nil instance of GetOrSetFunc
+	// processes the appropriate underlying struct field into
+	// the desired type.
 	AdditionalIdentifierGetFunc(GetOrSetFunc) (any, error)
 
 	// Info returns zero or more string values, each representing
-	// a single informational text block describing the nature
-	// and status of the registration instance.
+	// a single informational text block describing the nature and
+	// status of the registration instance.
 	Info() []string
 
 	// SetInfo appends one or more string values to the receiver's
@@ -649,11 +661,11 @@ type Registration interface {
 	URIGetFunc(GetOrSetFunc) (any, error)
 
 	// FirstAuthority returns zero or more LDAP string distinguished
-	// name values assigned to the registration instance, each
-	// of which represent a so-called First (Or Previous)
-	// registration authority responsible for the current
-	// registration. This only applies to so-called "dedicated"
-	// or "non-combined" registrant entries.
+	// name values assigned to the registration instance, each of
+	// which represent a so-called First (Or Previous) registration
+	// authority responsible for the current registration. This only
+	// applies to so-called "dedicated" or "non-combined" registrant
+	// entries.
 	FirstAuthority() []string
 
 	// CombinedFirstAuthority returns the underlying instance of

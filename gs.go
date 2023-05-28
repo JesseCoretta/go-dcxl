@@ -446,3 +446,102 @@ func DNToDotNot3D(X, R any) (id any, err error) {
 	id = join(nfs, `.`)
 	return
 }
+
+/*
+Relegate transports all values from input instance of *CurrentAuthority (R) -- which
+MUST be an actual pointer -- into a new instance of *FirstAuthority, which is then
+returned as an interface type alongside an error.
+
+The X input argument shall be a timestamp, whether in string-based generalizedTime
+format, or as a bonafide (non-zero) time.Time instance. The time value in context
+represents the date and time at which the CurrentAuthority withdrew ownership and
+responsibility for a registration. At that point, said CurrentAuthority is now a
+FirstAuthority (a.k.a.: a "previous authority"). If X is nil, time.Now() is used.
+
+This is particularly useful in cases where a CurrentAuthority -- one whom has a great
+many subordinate registrations -- is withdrawing from ownership, and it is undesirable
+to update said plethora of registrations to reflect a new currentAuthority DN. By using
+the Relegate function, all contents are transferred as-is (including the DN), thereby
+preserving Referential Integrity without any churn.
+
+The original (input) instance of *CurrentAuthority will remain untouched. If its
+contents were originally marshaled via an LDAP Search Operation, it is likely the
+entry will need to be deleted (or otherwise updated).
+*/
+func Relegate(X, R any) (F any, err error) {
+	// ONLY *CurrentAuthority input type
+	// instances are allowed, so long as
+	// they're non-nil.
+	if ca, ok := R.(*CurrentAuthority); !ok {
+		err = errorf("Cannot relegate an instance of %T; must be a CurrentAuthority", R)
+		return
+	} else if ca == nil {
+		err = errorf("Cannot relegate a nil %T", ca)
+		return
+	}
+
+	// The string time value, whatever it
+	// may be, shall be stored in endtime.
+	var endtime string
+	switch tv := X.(type) {
+	case string:
+		if _, ok := genTimeToTime(tv); !ok {
+			err = errorf("Invalid timestamp '%v'; time.Time parse failure", tv)
+			return
+		}
+		endtime = tv
+	case time.Time:
+		var ok bool
+		if endtime, ok = timeToGenTime(tv); !ok || tv.IsZero() {
+			err = errorf("Invalid timestamp '%v'; time.Time parse failure", tv)
+			return
+		}
+	case nil:
+		// Just use time.Now
+		endtime, _ = timeToGenTime(time.Now())
+	default:
+		err = errorf("Unsupported timestamp type '%T'", tv)
+		return
+	}
+
+	// Reflect the type and value of the source
+	// *CurrentAuthority instance (R).
+        v := valOf(R).Elem()
+        t := typeOf(R).Elem()
+
+	// Prepare the new destination *FirstAuthority
+	// instance in a similar manner.
+	var prev *FirstAuthority
+        v2 := valOf(prev).Elem()
+        t2 := typeOf(prev).Elem()
+
+	// Iterate through each struct field,
+	// taking care to match the source
+	// and destination field names. If a
+	// match is made, transfer value(s).
+	// Two loops are in effect here. The
+	// outer loop is the source, and the
+	// inner loop is the destination.
+        for i := 0; i < v.NumField(); i++ {
+                f1 := t.Field(i).Name
+                for j := 0; j < v2.NumField(); j++ {
+                        f2 := t2.Field(j).Name
+                        if f1 == f2 {
+                                v2.Field(j).Set(v.Field(i))
+				// When done writing, the inner
+				// (dest) loop can be closed.
+                                break
+                        }
+                }
+        }
+
+	// Stamp the time before we finish.
+	v2.FieldByName(`R_EndTime`).Set(valOf(endtime))
+
+	// Wrap the FirstAuthority as an interface,
+	// and ship it out.
+        F = v2.Interface().(*FirstAuthority)
+
+        return
+}
+
